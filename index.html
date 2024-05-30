@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reaction Test</title>
+    <link rel="icon" href="/images/icon.png">
+    <meta name="description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
+    <meta name="keywords" content="reaction test, reflex game, reaction time, count squares game, mental agility, reflex training, fun games, brain games, game, reaction game, reaction timer, colour game, color game, color test, colour test, counting game, counting test, number game, number test, color counting game, color counting test, colour counting game, colour">
+
+    <!-- Open Graph Meta Tags for social media sharing -->
+    <meta property="og:title" content="Reaction Test Game">
+    <meta property="og:description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
+    <!-- <meta property="og:image" content="URL to your image for social sharing">
+    <meta property="og:url" content="https://www.yourwebsite.com"> -->
+    <meta property="og:type" content="website">
+
+    <!-- Twitter Card Meta Tags for social media sharing -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Reaction Test Game">
+    <meta name="twitter:description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
+    <meta name="twitter:image" content="URL to your image for social sharing">
+    <meta name="twitter:url" content="https://www.yourwebsite.com">
+
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="startPopup" id="startPopup">
+        <div class="content">
+            <h2>Welcome to Reaction Test</h2>
+            <p>Count the squares with green colour and click the button with according number</p>
+            <button id="startGame">Start Game</button>
+        </div>
+    </div>    
+    <div class="container">
+        <div class="left">
+            <div class="points">
+                <div class="won">WON
+                    <div id="won">0</div>
+                </div>
+                <div class="lost">LOST
+                    <div id="lost">0</div>
+                </div>
+                <div class="score">SCORE
+                    <div id="score">0</div>
+                </div>
+            </div>
+        </div>
+        <div class="center">
+            <div class="timer" id="timer">30:00</div>
+            <div class="box">
+                <div class="square" id="1"></div>
+                <div class="square" id="2"></div>
+                <div class="square" id="3"></div>
+                <div class="square" id="4"></div><br>
+                <div class="square" id="5"></div>
+                <div class="square" id="6"></div>
+                <div class="square" id="7"></div>
+                <div class="square" id="8"></div><br>
+                <div class="square" id="9"></div>
+                <div class="square" id="10"></div>
+                <div class="square" id="11"></div>
+                <div class="square" id="12"></div><br>
+                <div class="square" id="13"></div>
+                <div class="square" id="14"></div>
+                <div class="square" id="15"></div>
+                <div class="square" id="16"></div><br>
+            </div>
+            <div class="options">
+                <button class="option" id="option1">1</button>
+                <button class="option" id="option2">2</button>
+                <button class="option" id="option3">3</button>
+            </div>
+            <div class="retry">
+                <button id="retry_button">Retry</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="scoreboard">
+                <div class="title">Top 5</div>
+                <div class="leaderboard">
+                    <div class="scores" id="top_1">5</div>
+                    <div class="scores" id="top_2">4</div>
+                    <div class="scores" id="top_3">3</div>
+                    <div class="scores" id="top_4">2</div>
+                    <div class="scores" id="top_5">1</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="gameOver" id="gameOver">
+        <div class="content">
+            <span class="close" id="close">&times;</span>
+            <p>Game Over</p>
+            <button id="gameOverButton">Try Again</button>
+        </div>
+    </div>
+    <script src="/script.js"></script>
+</body>
+</html>
