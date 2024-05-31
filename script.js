@@ -56,10 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return green
     }
 
-    const timerElement = document.getElementById("timer");
-    let timeInMilliseconds = 30000
-    let timerInterval;
-    
     function startTimer() {
         timerInterval = setInterval(() => {
             timeInMilliseconds -= 10;
@@ -96,6 +92,10 @@ document.addEventListener("DOMContentLoaded", () => {
         green = display(0);
     }
 
+    const timerElement = document.getElementById("timer");
+    let timeInMilliseconds = 30000
+    let timerInterval;
+
     let won = 0;
     let lost = 0;
     let score = 0;
@@ -103,7 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
-        let green = display(0);
+        green = display(0);
         startTimer();
     });
 
