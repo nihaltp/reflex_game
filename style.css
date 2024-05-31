@@ -41,6 +41,7 @@ body, html {
     font-size: 16px;
     cursor: pointer;
 }
+
 .startPopup button:hover {
     background-color: #0b7dda;
 }
@@ -63,14 +64,17 @@ body, html {
     height: 100%;
     padding: 10px;
 }
+
 .left {
     width: 20%;
     background-color: #f0f0f0;
 }
+
 .center {
     width: 50%;
     background-color: #ffffff;
 }
+
 .right {
     width: 20%;
     background-color: #f0f0f0;
@@ -105,12 +109,15 @@ body, html {
     text-align: center;
     padding: 5px;
 }
+
 .won {
     background-color: green;
 }
+
 .lost {
     background-color: red;
 }
+
 .score{
     background-color: blue;
 }
@@ -158,11 +165,13 @@ body, html {
     color: black;
     border: none;
 }
+
 .option:hover{
     background-color: orange;
 }
 
 button{
+    margin: 5px;
     padding: 10px 20px;
     border-radius: 6px;
     border-width: 2px;
@@ -175,6 +184,7 @@ button{
     justify-content: center;
     align-items: center;
 }
+
 button#retry_button{
     width: 120px;
     height: 40px;
@@ -184,6 +194,7 @@ button#retry_button{
     background: transparent;
     transition: border-color 0.25s ease;
 }
+
 button#retry_button:hover{
     border-color: #2196F3;
 }
@@ -223,6 +234,16 @@ button#retry_button:hover{
     height: 50px;
     border-radius: 5px;
     font-size: 18px;
+}
+
+button#reset_button{
+    border: none;
+    background-color: transparent;
+}
+
+button#reset_button:hover{
+    color: white;
+    background-color: red;
 }
 
 .gameOver {
@@ -271,6 +292,7 @@ button#gameOverButton{
     background: transparent;
     transition: border-color 0.25s ease;
 }
+
 button#gameOverButton:hover{
     border-color: black;
 }

@@ -116,6 +116,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("retry_button").addEventListener("click", () => {resetGame()});
 
+    document.getElementById("reset_button").addEventListener("click", () => {
+        localStorage.removeItem(scores);
+        scores = [0,0,0,0,0]
+        green = display(0)
+    });
+
     document.getElementById("gameOverButton").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
         resetGame()
