@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scores !== null) {
         scores = JSON.parse(scores);
     } else {
-        scores = [0,0,0,0,0];
+        scores = [ 0, 0, 0, 0, 0 ]; 
     }
 
     function compareRandom() {
@@ -14,13 +14,13 @@ document.addEventListener("DOMContentLoaded", () => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    function display(currentScore) {
-        const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,];
+    function display() {
+        const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
         const randomList = list.sort(compareRandom);
     
-        const green = getRandomInt(3, 7);
-        const red = getRandomInt(3, 11-green);
-        const white = 16-green-red
+        const green = getRandomInt(4, 8);
+        const red = getRandomInt(4, 11-green);
+        const white = 16 - green - red;
     
         const greenList = randomList.slice(0, green);
         randomList.splice(0, green);
@@ -30,17 +30,20 @@ document.addEventListener("DOMContentLoaded", () => {
     
         const whiteList = randomList;
     
-        greenList.forEach(num => {document.getElementById(num).style.backgroundColor = 'green';});
-        redList.forEach(num => {document.getElementById(num).style.backgroundColor = 'red';});
-        whiteList.forEach(num => {document.getElementById(num).style.backgroundColor = 'white';});
+        greenList.forEach(num => { document.getElementById(num).style.backgroundColor = 'green'; });
+        redList.forEach(num => { document.getElementById(num).style.backgroundColor = 'red'; });
+        whiteList.forEach(num => { document.getElementById(num).style.backgroundColor = 'white'; });
     
         const options = [green, red, white];
-        const randomOptions = options.sort(compareRandom)
+        const randomOptions = options.sort(compareRandom);
     
         document.getElementById("option1").textContent = randomOptions[0];
         document.getElementById("option2").textContent = randomOptions[1];
         document.getElementById("option3").textContent = randomOptions[2];
+        return green;
+    }
     
+    function updateDisplay(currentScore) {
         document.getElementById("won").textContent = won;
         document.getElementById("lost").textContent = lost;
     
@@ -60,8 +63,6 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("top_3").textContent = scores[2];
         document.getElementById("top_4").textContent = scores[3];
         document.getElementById("top_5").textContent = scores[4];
-
-        return green
     }
 
     function startTimer() {
@@ -70,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (timeInMilliseconds < 0) {
                 clearInterval(timerInterval);
                 timerElement.textContent = "00:00";
-                green = display(score);
+                updateDisplay(score);
                 document.getElementById("gameOver").style.display = "block";
             } else {
                 const seconds = Math.floor(timeInMilliseconds / 1000).toString().padStart(2, '0');
@@ -87,7 +88,8 @@ document.addEventListener("DOMContentLoaded", () => {
         timerElement.textContent = "30:00";
         won = 0;
         lost = 0;
-        green = display(0);
+        green = display();
+        updateDisplay(0);
         startTimer();
     }
 
@@ -97,7 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
         } else {
             lost++;
         }
-        green = display(0);
+        green = display();
+        updateDisplay(0);
     }
 
     const timerElement = document.getElementById("timer");
@@ -107,24 +110,26 @@ document.addEventListener("DOMContentLoaded", () => {
     let won = 0;
     let lost = 0;
     let score = 0;
+    let green;
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
-        green = display(0);
+        green = display();
+        updateDisplay(0);
         startTimer();
     });
 
-    document.getElementById("retry_button").addEventListener("click", () => {resetGame()});
+    document.getElementById("retry_button").addEventListener("click", () => { resetGame(); });
 
     document.getElementById("reset_button").addEventListener("click", () => {
-        localStorage.removeItem(scores);
-        scores = [0,0,0,0,0]
-        green = display(0)
+        localStorage.removeItem('scoreList');
+        scores = [ 0, 0, 0, 0, 0 ];
+        updateDisplay(0);
     });
 
     document.getElementById("gameOverButton").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
-        resetGame()
+        resetGame();
     });
 
     document.getElementById("option1").addEventListener("click", () => {
