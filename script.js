@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
+    let scores = localStorage.getItem('scoreList');
+    if (scores !== null) {
+        scores = JSON.parse(scores);
+    } else {
+        scores = [0,0,0,0,0];
+    }
+
     function compareRandom() {
         return Math.random() - 0.5;
     }
@@ -47,6 +54,7 @@ document.addEventListener("DOMContentLoaded", () => {
             scores.splice(5);
         }
     
+        localStorage.setItem('scoreList', JSON.stringify(scores));
         document.getElementById("top_1").textContent = scores[0];
         document.getElementById("top_2").textContent = scores[1];
         document.getElementById("top_3").textContent = scores[2];
@@ -99,7 +107,6 @@ document.addEventListener("DOMContentLoaded", () => {
     let won = 0;
     let lost = 0;
     let score = 0;
-    let scores = [0,0,0,0,0];
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
