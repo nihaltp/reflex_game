@@ -34,9 +34,9 @@ document.addEventListener("DOMContentLoaded", () => {
         redList.forEach(num => { document.getElementById(num).style.backgroundColor = 'red'; });
         whiteList.forEach(num => { document.getElementById(num).style.backgroundColor = 'white'; });
     
-        const options = [green, red, white];
+        const options = [green - 1, green, green + 1];
         const randomOptions = options.sort(compareRandom);
-    
+
         document.getElementById("option1").textContent = randomOptions[0];
         document.getElementById("option2").textContent = randomOptions[1];
         document.getElementById("option3").textContent = randomOptions[2];
@@ -125,6 +125,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem('scoreList');
         scores = [ 0, 0, 0, 0, 0 ];
         updateDisplay(0);
+        window.alert("Data has been reset");
     });
 
     document.getElementById("gameOverButton").addEventListener("click", () => {
