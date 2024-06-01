@@ -6,6 +6,8 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: 'Arial', sans-serif;
+    font-size: 1rem;
 }
 
 .startPopup {
@@ -23,7 +25,7 @@ body, html {
 
 .startPopup .content {
     background-color: white;
-    padding: 20px;
+    padding: 1.25em;
     border-radius: 10px;
     text-align: center;
 }
@@ -33,13 +35,14 @@ body, html {
 }
 
 .startPopup button {
-    padding: 10px 20px;
+    padding: 0.625em 1.25em;
     border-radius: 5px;
     background-color: #2196F3;
     color: white;
     border: none;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
+    transition: background-color 0.25s ease;
 }
 
 .startPopup button:hover {
@@ -53,7 +56,7 @@ body, html {
     width: 90%;
     height: 90%;
     background-color: white;
-    padding: 10px;
+    padding: 1rem;
 }
 
 .left, .center, .right {
@@ -62,10 +65,10 @@ body, html {
     align-items: center;
     justify-content: center;
     height: 100%;
-    padding: 10px;
+    padding: 1rem;
 }
 
-.left {
+.left, .right {
     width: 20%;
     background-color: #f0f0f0;
 }
@@ -73,11 +76,6 @@ body, html {
 .center {
     width: 50%;
     background-color: #ffffff;
-}
-
-.right {
-    width: 20%;
-    background-color: #f0f0f0;
 }
 
 .timer {
@@ -88,12 +86,12 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 24px;
+    font-size: 1.5rem;
     color: white;
     border-radius: 5px;
 }
 
-.points{
+.points {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -101,13 +99,13 @@ body, html {
     height: 200px;
 }
 
-.won, .lost, .score{
+.won, .lost, .score {
     width: 33%;
     height: 100%;
     max-height: 60px;
     color: white;
     text-align: center;
-    padding: 5px;
+    padding: 0.3125rem;
 }
 
 .won {
@@ -118,15 +116,15 @@ body, html {
     background-color: red;
 }
 
-.score{
+.score {
     background-color: blue;
 }
 
-#won, #lost, #score{
-    padding: 5px;
+#won, #lost, #score {
+    padding: 0.3125rem;
 }
 
-.box{
+.box {
     background-color: yellow;
     width: 340px;
     height: 100%;
@@ -135,7 +133,7 @@ body, html {
     flex-wrap: wrap;
 }
 
-.square{
+.square {
     width: 25%;
     height: 25%;
     max-width: 75px;
@@ -146,7 +144,7 @@ body, html {
     margin: 5px;
 }
 
-.options{
+.options {
     width: 100%;
     max-width: 340px;
     height: 65px;
@@ -156,7 +154,11 @@ body, html {
     align-items: center;
 }
 
-.option{
+.points .won, .points .lost, .points .score, .leaderboard .scores {
+    font-size: 1em;
+}
+
+.option {
     width: 30%;
     max-width: 100px;
     height: 50px;
@@ -166,17 +168,17 @@ body, html {
     border: none;
 }
 
-.option:hover{
+.option:hover {
     background-color: orange;
 }
 
-button{
-    margin: 5px;
-    padding: 10px 20px;
+button {
+    margin: 0.3125rem;
+    padding: 0.625rem 1.25rem;
     border-radius: 6px;
     border-width: 2px;
     border-style: solid;
-    font-size: 20px;
+    font-size: 1.25rem;
     font-family: 'Ubuntu', sans-serif;
     cursor: pointer;
     transition: 0.25s ease;
@@ -185,7 +187,7 @@ button{
     align-items: center;
 }
 
-button#retry_button{
+button#retry_button {
     width: 120px;
     height: 40px;
     margin-top: 10px;
@@ -195,7 +197,7 @@ button#retry_button{
     transition: border-color 0.25s ease;
 }
 
-button#retry_button:hover{
+button#retry_button:hover {
     border-color: #2196F3;
 }
 
@@ -208,12 +210,12 @@ button#retry_button:hover{
     justify-content: center;
     align-items: center;
     border-radius: 5px;
-    padding: 10px;
+    padding: 1rem;
     box-sizing: border-box;
 }
 
 .title {
-    font-size: 24px;
+    font-size: 1.5rem;
     margin-bottom: 10px;
 }
 
@@ -221,7 +223,7 @@ button#retry_button:hover{
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.625rem;
 }
 
 .scores {
@@ -233,15 +235,15 @@ button#retry_button:hover{
     background-color: lightblue;
     height: 50px;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 1.125rem;
 }
 
-button#reset_button{
+button#reset_button {
     border: none;
     background-color: transparent;
 }
 
-button#reset_button:hover{
+button#reset_button:hover {
     color: white;
     background-color: red;
 }
@@ -255,14 +257,13 @@ button#reset_button:hover{
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
 }
 
 .content {
     background-color: #fefefe;
     margin: 15% auto;
-    padding: 20px;
+    padding: 1.25rem;
     border: 1px solid #888;
     width: 30%;
 }
@@ -270,19 +271,18 @@ button#reset_button:hover{
 .close {
     color: #aaa;
     float: right;
-    font-size: 28px;
+    font-size: 1.75rem;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .close:hover, .close:focus {
     color: black;
-    border-color: black;
     text-decoration: none;
-    cursor: pointer;
 }
 
-button#gameOverButton{
-    font-size: 18px;
+button#gameOverButton {
+    font-size: 1.125rem;
     display: block;
     width: 120px;
     height: 40px;
@@ -293,6 +293,67 @@ button#gameOverButton{
     transition: border-color 0.25s ease;
 }
 
-button#gameOverButton:hover{
+button#gameOverButton:hover {
     border-color: black;
+}
+
+@media (min-width: 768px) {
+    .container {
+        flex-direction: row;
+    }
+    .left, .right {
+        width: 30%;
+    }
+    .center {
+        width: 40%;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 0.3125rem;
+        flex-direction: column;
+    }
+    .left, .center, .right {
+        width: 80%;
+    }
+    .left {
+        height: 100px;
+    }
+    .startPopup .content {
+        width: 16em;
+    }
+    .startPopup button {
+        margin: auto;
+    }
+    .box, .options {
+        width: 75%;
+    }
+    .square {
+        max-width: 45px;
+        height: 45px;
+    }
+    .timer {
+        width: 60px;
+        height: 30px;
+        font-size: 0.875rem;
+    }
+    .options {
+        max-width: 240px;
+    }
+    .option {
+        max-width: 70px;
+        height: 35px;
+        font-size: 0.875rem;
+    }
+    .points .won, .points .lost, .points .score, .leaderboard .scores {
+        font-size: 0.8em;
+    }
+    .startPopup .content {
+        padding: 0.9375rem;
+    }
+    .startPopup button {
+        padding: 0.5rem 1rem;
+        font-size: 0.875rem;
+    }
 }
