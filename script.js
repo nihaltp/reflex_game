@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 clearInterval(timerInterval);
                 timerElement.textContent = "00:00";
                 updateDisplay(score);
-                document.getElementById("gameOver").style.display = "block";
+                document.getElementById("gameOver").style.display = "flex";
             } else {
                 const seconds = Math.floor(timeInMilliseconds / 1000).toString().padStart(2, '0');
                 const remainingMilliseconds = timeInMilliseconds % 1000;

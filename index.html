@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reaction Test</title>
-    <link rel="icon" href="images/icon.png">
+    <link rel="icon" href="images/icon.png" alt="Reflex game logo">
     <meta name="description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
     <meta name="keywords" content="reaction test, reflex game, reaction time, count squares game, mental agility, reflex training, fun games, brain games, game, reaction game, reaction timer, colour game, color game, color test, colour test, counting game, counting test, number game, number test, color counting game, color counting test, colour counting game, colour">
 
@@ -25,11 +25,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="startPopup" id="startPopup">
+    <div class="startPopup" id="startPopup" role="dialog" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
         <div class="content">
-            <h2>Welcome to Reaction Test</h2>
+            <h2 role="heading">Welcome to Reaction Test</h2>
             <p>Count the squares with green colour and click the button with according number</p>
-            <button id="startGame">Start Game</button>
+            <button id="startGame" role="button" aria-label="Start game">Start Game</button>
         </div>
     </div>    
     <div class="container">
@@ -47,36 +47,44 @@
             </div>
         </div>
         <div class="center">
-            <div class="timer" id="timer">30:00</div>
+            <div class="timer" id="timer" aria-live="polite">30:00</div>
             <div class="box">
-                <div class="square" id="1"></div>
-                <div class="square" id="2"></div>
-                <div class="square" id="3"></div>
-                <div class="square" id="4"></div><br>
-                <div class="square" id="5"></div>
-                <div class="square" id="6"></div>
-                <div class="square" id="7"></div>
-                <div class="square" id="8"></div><br>
-                <div class="square" id="9"></div>
-                <div class="square" id="10"></div>
-                <div class="square" id="11"></div>
-                <div class="square" id="12"></div><br>
-                <div class="square" id="13"></div>
-                <div class="square" id="14"></div>
-                <div class="square" id="15"></div>
-                <div class="square" id="16"></div><br>
+                <div class="row">
+                    <div class="square" id="1"></div>
+                    <div class="square" id="2"></div>
+                    <div class="square" id="3"></div>
+                    <div class="square" id="4"></div>
+                </div>
+                <div class="row">
+                    <div class="square" id="5"></div>
+                    <div class="square" id="6"></div>
+                    <div class="square" id="7"></div>
+                    <div class="square" id="8"></div>
+                </div>
+                <div class="row">
+                    <div class="square" id="9"></div>
+                    <div class="square" id="10"></div>
+                    <div class="square" id="11"></div>
+                    <div class="square" id="12"></div>
+                </div>
+                <div class="row">
+                    <div class="square" id="13"></div>
+                    <div class="square" id="14"></div>
+                    <div class="square" id="15"></div>
+                    <div class="square" id="16"></div>
+                </div>
             </div>
             <div class="options">
-                <button class="option" id="option1">1</button>
-                <button class="option" id="option2">2</button>
-                <button class="option" id="option3">3</button>
+                <button class="option" id="option1" role="button" aria-label="option 1">1</button>
+                <button class="option" id="option2" role="button" aria-label="option 2">2</button>
+                <button class="option" id="option3" role="button" aria-label="option 3">3</button>
             </div>
             <div class="retry">
-                <button id="retry_button">Retry</button>
+                <button id="retry_button" role="button" aria-label="Retry game">Retry</button>
             </div>
         </div>
         <div class="right">
-            <div class="scoreboard">
+            <div class="scoreboard" aria-live="polite">
                 <div class="title">Top 5</div>
                 <div class="leaderboard">
                     <div class="scores" id="top_1">5</div>
@@ -86,16 +94,16 @@
                     <div class="scores" id="top_5">1</div>
                 </div>
                 <div class="reset">
-                    <button id="reset_button">Reset Data</button>
+                    <button id="reset_button" role="button" aria-label="Reset game data">Reset Data</button>
                 </div>
             </div>
         </div>
     </div>
-    <div class="gameOver" id="gameOver">
+    <div class="gameOver" id="gameOver" role="alert">
         <div class="content">
-            <span class="close" id="close">&times;</span>
+            <span class="close" id="close" role="button" aria-label="close window">&times;</span>
             <p>Game Over</p>
-            <button id="gameOverButton">Try Again</button>
+            <button id="gameOverButton" role="button" aria-label="Retry game">Try Again</button>
         </div>
     </div>
     <script src="script.js"></script>
