@@ -162,6 +162,7 @@ body, html {
     box-sizing: border-box;
     border-radius: 5px;
     margin: 5px;
+    transition: all 0.5s ease-in-out;
     border: 1px solid black;
 }
 
@@ -191,6 +192,10 @@ body, html {
 
 .option:hover {
     background-color: var(--option-hover-color);
+}
+
+.option:active {
+    transform: scale(1.2);
 }
 
 button {
