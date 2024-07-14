@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scores !== null) {
         scores = JSON.parse(scores);
     } else {
-        scores = [0, 0, 0, 0, 0];
+        scores = ["N/A", "N/A", "N/A", "N/A", "N/A"];
     }
 
     function compareRandom() {
@@ -54,8 +54,10 @@ document.addEventListener("DOMContentLoaded", () => {
         score = won - lost;
         document.getElementById("score").textContent = score;
 
-        scores.push(currentScore);
-        scores.sort((a, b) => a - b);
+                if (!isNaN(currentScore)) {
+            scores.push(currentScore);
+            scores = scores.filter(score => !isNaN(score)).sort((a, b) => a - b);
+        }
 
         if (scores.length > 5) {
             scores.splice(5);
@@ -98,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lost = 0;
         timesTaken = [];
         green = display();
-        updateDisplay(5000);
+        updateDisplay("N/A");
         startTimer();
     }
 
@@ -115,10 +117,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.getElementById("time").textContent = `${Math.floor(timeTaken)} ms`;
         green = display();
-        updateDisplay(5000);
+        updateDisplay("N/A");
     }
 
     function calculateAverageTime() {
+        if (timesTaken.length === 0) return "N/A";
         const total = timesTaken.reduce((acc, time) => acc + time, 0);
         const average = total / timesTaken.length;
         return Math.floor(average)
@@ -137,7 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
         green = display();
-        updateDisplay(5000);
+        updateDisplay("N/A");
         startTimer();
     });
 
@@ -145,8 +148,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("reset_button").addEventListener("click", () => {
         localStorage.removeItem('scoreList');
-        scores = [0, 0, 0, 0, 0];
-        updateDisplay(5000);
+        scores = ["N/A", "N/A", "N/A", "N/A", "N/A"];
+        updateDisplay("N/A");
         window.alert("Data has been reset");
     });
 
