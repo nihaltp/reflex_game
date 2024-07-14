@@ -45,6 +45,7 @@
                     <div id="score">0</div>
                 </div>
             </div>
+            <div class="time" id="time">1000 ms</div>
         </div>
         <div class="center">
             <div class="timer" id="timer" aria-live="polite">30:00</div>
@@ -87,11 +88,11 @@
             <div class="scoreboard" aria-live="polite">
                 <div class="title">Top 5</div>
                 <div class="leaderboard">
-                    <div class="scores" id="top_1">5</div>
-                    <div class="scores" id="top_2">4</div>
-                    <div class="scores" id="top_3">3</div>
-                    <div class="scores" id="top_4">2</div>
-                    <div class="scores" id="top_5">1</div>
+                    <div class="scores" id="top_1">1000</div>
+                    <div class="scores" id="top_2">2000</div>
+                    <div class="scores" id="top_3">3000</div>
+                    <div class="scores" id="top_4">4000</div>
+                    <div class="scores" id="top_5">5000</div>
                 </div>
                 <div class="reset">
                     <button id="reset_button" role="button" aria-label="Reset game data">Reset Data</button>
@@ -103,6 +104,8 @@
         <div class="content">
             <span class="close" id="close" role="button" aria-label="close window">&times;</span>
             <p>Game Over</p>
+            <p>Score: <span id="finalScore">1000</span>ms</p>
+            <p>Accuracy: <span id="accuracy">100</span>%</p>
             <button id="gameOverButton" role="button" aria-label="Retry game">Try Again</button>
         </div>
     </div>

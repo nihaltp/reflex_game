@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (scores !== null) {
         scores = JSON.parse(scores);
     } else {
-        scores = [ 0, 0, 0, 0, 0 ]; 
+        scores = [0, 0, 0, 0, 0];
     }
 
     function compareRandom() {
@@ -14,49 +14,53 @@ document.addEventListener("DOMContentLoaded", () => {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
+    let startTime;
+
     function display() {
-        const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16 ];
+        const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         const randomList = list.sort(compareRandom);
-    
+
         const green = getRandomInt(4, 8);
-        const red = getRandomInt(4, 11-green);
+        const red = getRandomInt(4, 11 - green);
         const white = 16 - green - red;
-    
+
         const greenList = randomList.slice(0, green);
         randomList.splice(0, green);
-    
+
         const redList = randomList.slice(0, red);
         randomList.splice(0, red);
-    
+
         const whiteList = randomList;
-    
+
         greenList.forEach(num => { document.getElementById(num).style.backgroundColor = 'green'; });
         redList.forEach(num => { document.getElementById(num).style.backgroundColor = 'red'; });
         whiteList.forEach(num => { document.getElementById(num).style.backgroundColor = 'white'; });
-    
+
         const options = [green - 1, green, green + 1];
         const randomOptions = options.sort(compareRandom);
 
         document.getElementById("option1").textContent = randomOptions[0];
         document.getElementById("option2").textContent = randomOptions[1];
         document.getElementById("option3").textContent = randomOptions[2];
+        
+        startTime = new Date();
         return green;
     }
-    
+
     function updateDisplay(currentScore) {
         document.getElementById("won").textContent = won;
         document.getElementById("lost").textContent = lost;
-    
+
         score = won - lost;
         document.getElementById("score").textContent = score;
-    
+
         scores.push(currentScore);
-        scores.sort((a, b) => b - a);
-    
+        scores.sort((a, b) => a - b);
+
         if (scores.length > 5) {
             scores.splice(5);
         }
-    
+
         localStorage.setItem('scoreList', JSON.stringify(scores));
         document.getElementById("top_1").textContent = scores[0];
         document.getElementById("top_2").textContent = scores[1];
@@ -71,7 +75,11 @@ document.addEventListener("DOMContentLoaded", () => {
             if (timeInMilliseconds < 0) {
                 clearInterval(timerInterval);
                 timerElement.textContent = "00:00";
-                updateDisplay(score);
+                const averageTime = calculateAverageTime();
+                document.getElementById("finalScore").textContent = averageTime;
+                accuracy = (score / (won + lost))*100;
+                document.getElementById("accuracy").textContent = accuracy.toFixed(2);
+                updateDisplay(averageTime);
                 document.getElementById("gameOver").style.display = "flex";
             } else {
                 const seconds = Math.floor(timeInMilliseconds / 1000).toString().padStart(2, '0');
@@ -88,19 +96,32 @@ document.addEventListener("DOMContentLoaded", () => {
         timerElement.textContent = "30:00";
         won = 0;
         lost = 0;
+        timesTaken = [];
         green = display();
-        updateDisplay(0);
+        updateDisplay(5000);
         startTimer();
     }
 
     function handleOptionClick(optionText) {
+        const currentTime = new Date();
+        const timeTaken = currentTime - startTime;
+        
         if (parseInt(optionText) === green) {
             won++;
+            timesTaken.push(timeTaken);
         } else {
             lost++;
+            timesTaken.push(timeTaken+1000);
         }
+        document.getElementById("time").textContent = `${Math.floor(timeTaken)} ms`;
         green = display();
-        updateDisplay(0);
+        updateDisplay(5000);
+    }
+
+    function calculateAverageTime() {
+        const total = timesTaken.reduce((acc, time) => acc + time, 0);
+        const average = total / timesTaken.length;
+        return Math.floor(average)
     }
 
     const timerElement = document.getElementById("timer");
@@ -111,11 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let lost = 0;
     let score = 0;
     let green;
+    let timesTaken = [];
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
         green = display();
-        updateDisplay(0);
+        updateDisplay(5000);
         startTimer();
     });
 
@@ -123,8 +145,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("reset_button").addEventListener("click", () => {
         localStorage.removeItem('scoreList');
-        scores = [ 0, 0, 0, 0, 0 ];
-        updateDisplay(0);
+        scores = [0, 0, 0, 0, 0];
+        updateDisplay(5000);
         window.alert("Data has been reset");
     });
 
