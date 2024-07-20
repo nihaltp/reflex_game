@@ -2,7 +2,7 @@
     --primary-color: #2196F3;
     --hover-color: #0b7dda;
     --background-color: #ffffff;
-    --secondary-background-color: lightgrey;
+    --secondary-background-color: #ebebeb;
     --score-background-color: lightblue;
     --overlay-color: rgba(0, 0, 0, 0.5);
     --won-color: green;
@@ -14,6 +14,7 @@
     --option-text-color: black;
     --option-background-color: white;
     --option-hover-color: orange;
+    --fa-color: #aaa;
 }
 
 body, html {
@@ -24,6 +25,7 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     font-family: 'Arial', sans-serif;
     font-size: 1rem;
     background-color: var(--background-color);
@@ -66,6 +68,22 @@ body, html {
 
 .startPopup button:hover {
     background-color: var(--hover-color);
+}
+
+.top {
+    position: absolute;
+    top: 0px;
+    right: 8px;
+}
+
+ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+a {
+    color: var(--fa-color);
 }
 
 .container {
@@ -151,16 +169,15 @@ body, html {
 
 .box {
     width: 340px;
-    height: 100%;
-    max-height: 340px;
+    height: 340px;
     display: flex;
     flex-wrap: wrap;
     background-color: var(--box-color);
 }
 
 .row {
-    flex-direction: row;
     display: flex;
+    flex-direction: row;
     width: 100%;
 }
 
