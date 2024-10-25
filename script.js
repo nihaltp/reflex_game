@@ -154,27 +154,15 @@ document.addEventListener("DOMContentLoaded", () => {
         window.alert("Data has been reset");
     });
 
-    document.getElementById("delete1").addEventListener("click", () => {
-        scores[0] = "N/A";
-        updateDisplay();
+    const deleteButtons = document.querySelectorAll(".delete");
+    deleteButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const index = button.getAttribute("data-index");
+            scores[index] = "N/A";
+            updateDisplay();
+        });
     });
-    document.getElementById("delete2").addEventListener("click", () => {
-        scores[1] = "N/A";
-        updateDisplay();
-    });
-    document.getElementById("delete3").addEventListener("click", () => {
-        scores[2] = "N/A";
-        updateDisplay();
-    });
-    document.getElementById("delete4").addEventListener("click", () => {
-        scores[3] = "N/A";
-        updateDisplay();
-    });
-    document.getElementById("delete5").addEventListener("click", () => {
-        scores[4] = "N/A";
-        updateDisplay();
-    });
-
+    
     document.getElementById("gameOverButton").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
         resetGame();
