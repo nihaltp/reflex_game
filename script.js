@@ -5,6 +5,15 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
         scores = ["N/A", "N/A", "N/A", "N/A", "N/A"];
     }
+    let startTime;
+    let timeInMilliseconds = 30000
+    let timerInterval;
+    let won = 0;
+    let lost = 0;
+    let score = 0;
+    let green;
+    let timesTaken = [];
+    let greenPrevious = -1;
 
     function compareRandom() {
         return Math.random() - 0.5;
@@ -13,8 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
     function getRandomInt(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
-    let startTime;
 
     function display() {
         const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
@@ -35,12 +42,15 @@ document.addEventListener("DOMContentLoaded", () => {
         redList.forEach(num => { document.getElementById(num).style.backgroundColor = 'red'; });
         whiteList.forEach(num => { document.getElementById(num).style.backgroundColor = 'white'; });
 
-        const options = [green - 1, green, green + 1];
-        const randomOptions = options.sort(compareRandom);
+        let options = [green - 1, green, green + 1];
+        do {
+            options.sort(compareRandom);
+        } while (options[greenPrevious] == green);
+        greenPrevious = options.indexOf(green);
 
-        document.getElementById("option1").textContent = randomOptions[0];
-        document.getElementById("option2").textContent = randomOptions[1];
-        document.getElementById("option3").textContent = randomOptions[2];
+        document.getElementById("option1").textContent = options[0];
+        document.getElementById("option2").textContent = options[1];
+        document.getElementById("option3").textContent = options[2];
         
         startTime = new Date();
         return green;
@@ -129,14 +139,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const timerElement = document.getElementById("timer");
-    let timeInMilliseconds = 30000
-    let timerInterval;
-
-    let won = 0;
-    let lost = 0;
-    let score = 0;
-    let green;
-    let timesTaken = [];
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
