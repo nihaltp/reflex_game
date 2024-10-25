@@ -70,16 +70,11 @@ body, html {
     background-color: var(--hover-color);
 }
 
-.top {
-    position: absolute;
-    top: 0px;
-    right: 8px;
-}
-
 ul {
     display: flex;
     align-items: center;
     list-style-type: none;
+    padding: 0px;
 }
 
 a {
@@ -169,7 +164,7 @@ a {
 
 .box {
     width: 340px;
-    height: 340px;
+    aspect-ratio: 1/1;
     display: flex;
     flex-wrap: wrap;
     background-color: var(--box-color);
@@ -389,12 +384,14 @@ button#gameOverButton:hover {
         margin: auto;
     }
     .box, .options {
-        width: 75%;
+        width: 80vw;
+        aspect-ratio: 1/1;
         max-width: 340px;
     }
     .square {
         width: 25%;
-        height: 100%;
+        aspect-ratio: 1/1;
+        max-width: 75px;
     }
     .timer {
         width: 60px;
