@@ -64,11 +64,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         localStorage.setItem('scoreList', JSON.stringify(scores));
-        document.getElementById("top_1").textContent = scores[0];
-        document.getElementById("top_2").textContent = scores[1];
-        document.getElementById("top_3").textContent = scores[2];
-        document.getElementById("top_4").textContent = scores[3];
-        document.getElementById("top_5").textContent = scores[4];
+        document.querySelector("#top_1.score-text").textContent = scores[0];
+        document.querySelector("#top_2.score-text").textContent = scores[1];
+        document.querySelector("#top_3.score-text").textContent = scores[2];
+        document.querySelector("#top_4.score-text").textContent = scores[3];
+        document.querySelector("#top_5.score-text").textContent = scores[4];
     }
 
     function startTimer() {
