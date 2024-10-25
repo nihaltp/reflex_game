@@ -22,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const green = getRandomInt(4, 8);
         const red = getRandomInt(4, 11 - green);
-        const white = 16 - green - red;
 
         const greenList = randomList.slice(0, green);
         randomList.splice(0, green);
@@ -47,28 +46,30 @@ document.addEventListener("DOMContentLoaded", () => {
         return green;
     }
 
-    function updateDisplay(currentScore) {
+    function updateScore() {
         document.getElementById("won").textContent = won;
         document.getElementById("lost").textContent = lost;
-
+        
         score = won - lost;
         document.getElementById("score").textContent = score;
+    }
 
-                if (!isNaN(currentScore)) {
+    function updateDisplay(currentScore = "N/A") {
+        if (!isNaN(currentScore)) {
             scores.push(currentScore);
-            scores = scores.filter(score => !isNaN(score)).sort((a, b) => a - b);
         }
+        scores = scores.filter(score => !isNaN(score)).sort((a, b) => a - b);
 
         if (scores.length > 5) {
             scores.splice(5);
         }
 
         localStorage.setItem('scoreList', JSON.stringify(scores));
-        document.querySelector("#top_1.score-text").textContent = scores[0];
-        document.querySelector("#top_2.score-text").textContent = scores[1];
-        document.querySelector("#top_3.score-text").textContent = scores[2];
-        document.querySelector("#top_4.score-text").textContent = scores[3];
-        document.querySelector("#top_5.score-text").textContent = scores[4];
+        document.querySelector("#top_1 .score-text").textContent = scores[0];
+        document.querySelector("#top_2 .score-text").textContent = scores[1];
+        document.querySelector("#top_3 .score-text").textContent = scores[2];
+        document.querySelector("#top_4 .score-text").textContent = scores[3];
+        document.querySelector("#top_5 .score-text").textContent = scores[4];
     }
 
     function startTimer() {
@@ -100,7 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
         lost = 0;
         timesTaken = [];
         green = display();
-        updateDisplay("N/A");
+        updateScore();
         startTimer();
     }
 
@@ -117,7 +118,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         document.getElementById("time").textContent = `${Math.floor(timeTaken)} ms`;
         green = display();
-        updateDisplay("N/A");
+        updateScore();
     }
 
     function calculateAverageTime() {
@@ -140,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
         green = display();
-        updateDisplay("N/A");
+        updateDisplay();
         startTimer();
     });
 
@@ -149,8 +150,29 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("reset_button").addEventListener("click", () => {
         localStorage.removeItem('scoreList');
         scores = ["N/A", "N/A", "N/A", "N/A", "N/A"];
-        updateDisplay("N/A");
+        updateDisplay();
         window.alert("Data has been reset");
+    });
+
+    document.getElementById("delete1").addEventListener("click", () => {
+        scores[0] = "N/A";
+        updateDisplay();
+    });
+    document.getElementById("delete2").addEventListener("click", () => {
+        scores[1] = "N/A";
+        updateDisplay();
+    });
+    document.getElementById("delete3").addEventListener("click", () => {
+        scores[2] = "N/A";
+        updateDisplay();
+    });
+    document.getElementById("delete4").addEventListener("click", () => {
+        scores[3] = "N/A";
+        updateDisplay();
+    });
+    document.getElementById("delete5").addEventListener("click", () => {
+        scores[4] = "N/A";
+        updateDisplay();
     });
 
     document.getElementById("gameOverButton").addEventListener("click", () => {

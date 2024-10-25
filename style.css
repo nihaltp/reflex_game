@@ -292,6 +292,10 @@ button#retry_button:hover {
     background-color: var(--score-background-color);
 }
 
+.delete {
+    margin-left: 5px;
+}
+
 button#reset_button {
     border: none;
     background-color: transparent;
