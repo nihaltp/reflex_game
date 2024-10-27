@@ -116,6 +116,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function handleOptionClick(optionText) {
+        if (!(optionText>='0' && optionText<='9')) {
+            return
+        }
         const currentTime = new Date();
         const timeTaken = currentTime - startTime;
         
@@ -179,6 +182,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.getElementById("option3").addEventListener("click", () => {
         handleOptionClick(document.getElementById("option3").textContent);
     });
+    document.addEventListener("keydown", (event) => handleOptionClick(event.key));
 
     document.getElementById("close").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
