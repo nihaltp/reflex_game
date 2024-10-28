@@ -14,6 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let green;
     let timesTaken = [];
     let greenPrevious = -1;
+    let greenIndexPrevious = -1;
 
     function compareRandom() {
         return Math.random() - 0.5;
@@ -27,7 +28,11 @@ document.addEventListener("DOMContentLoaded", () => {
         const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
         const randomList = list.sort(compareRandom);
 
-        const green = getRandomInt(4, 8);
+        do {
+            green = getRandomInt(4, 8);
+        } while (greenPrevious == green);
+        greenPrevious = green;
+
         const red = getRandomInt(4, 11 - green);
 
         const greenList = randomList.slice(0, green);
@@ -45,15 +50,15 @@ document.addEventListener("DOMContentLoaded", () => {
         let options = [green - 1, green, green + 1];
         do {
             options.sort(compareRandom);
-        } while (options[greenPrevious] == green);
-        greenPrevious = options.indexOf(green);
-
+        } while (options[greenIndexPrevious] == green);
+        greenIndexPrevious = options.indexOf(green);
+        
         document.getElementById("option1").textContent = options[0];
         document.getElementById("option2").textContent = options[1];
         document.getElementById("option3").textContent = options[2];
         
         startTime = new Date();
-        return green;
+        return
     }
 
     function updateScore() {
@@ -110,7 +115,7 @@ document.addEventListener("DOMContentLoaded", () => {
         won = 0;
         lost = 0;
         timesTaken = [];
-        green = display();
+        display();
         updateScore();
         startTimer();
     }
@@ -130,7 +135,7 @@ document.addEventListener("DOMContentLoaded", () => {
             timesTaken.push(timeTaken+1000);
         }
         document.getElementById("time").textContent = `${Math.floor(timeTaken)} ms`;
-        green = display();
+        display();
         updateScore();
     }
 
@@ -145,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
-        green = display();
+        display();
         updateDisplay();
         startTimer();
     });
