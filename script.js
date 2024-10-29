@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
         scores = ["N/A", "N/A", "N/A", "N/A", "N/A"];
     }
     let startTime;
+    let currentTime
     let timeInMilliseconds = 30000
     let timerInterval;
     let won = 0;
@@ -15,6 +16,15 @@ document.addEventListener("DOMContentLoaded", () => {
     let timesTaken = [];
     let greenPrevious = -1;
     let greenIndexPrevious = -1;
+
+    const timerElement = document.getElementById("timer");
+    const timeElement = document.getElementById("time");
+    const option1 = document.getElementById("option1");
+    const option2 = document.getElementById("option2");
+    const option3 = document.getElementById("option3");
+    const settingsIcon = document.getElementById("settingsIcon");
+    const checkIcon = document.getElementById("checkIcon");
+    const settingsContent = document.getElementById("settings");
 
     function compareRandom() {
         return Math.random() - 0.5;
@@ -42,13 +52,6 @@ document.addEventListener("DOMContentLoaded", () => {
         randomList.splice(0, red);
 
         const whiteList = randomList;
-
-        function setColorClass(index, colorClass) {
-            const element = document.querySelector(`[data-index="${index}"]`)
-            element.classList.remove(...element.classList)
-            element.classList.add("square")
-            element.classList.add(colorClass)
-        }
         
         greenList.forEach(num => { setColorClass(num, "green") });
         redList.forEach(num => { setColorClass(num, "red") });
@@ -60,12 +63,19 @@ document.addEventListener("DOMContentLoaded", () => {
         } while (options[greenIndexPrevious] == green);
         greenIndexPrevious = options.indexOf(green);
         
-        document.getElementById("option1").textContent = options[0];
-        document.getElementById("option2").textContent = options[1];
-        document.getElementById("option3").textContent = options[2];
+        option1.textContent = options[0];
+        option2.textContent = options[1];
+        option3.textContent = options[2];
         
         startTime = new Date();
         return
+    }
+
+    function setColorClass(index, colorClass) {
+        const element = document.querySelector(`[data-index="${index}"]`)
+        element.classList.remove(...element.classList)
+        element.classList.add("square")
+        element.classList.add(colorClass)
     }
 
     function updateScore() {
@@ -100,6 +110,9 @@ document.addEventListener("DOMContentLoaded", () => {
             if (timeInMilliseconds < 0) {
                 clearInterval(timerInterval);
                 timerElement.textContent = "00:00";
+                const currentTime = new Date();
+                const timeTaken = currentTime - startTime;
+                timesTaken.push(timeTaken);
                 const averageTime = calculateAverageTime();
                 document.getElementById("finalScore").textContent = averageTime;
                 accuracy = (score / (won + lost))*100;
@@ -119,6 +132,7 @@ document.addEventListener("DOMContentLoaded", () => {
         clearInterval(timerInterval);
         timeInMilliseconds = 30000;
         timerElement.textContent = "30:00";
+        timeElement.textContent = "0ms";
         won = 0;
         lost = 0;
         timesTaken = [];
@@ -131,17 +145,18 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!(optionText>='0' && optionText<='9')) {
             return
         }
-        const currentTime = new Date();
+        currentTime = new Date();
         const timeTaken = currentTime - startTime;
         
         if (parseInt(optionText) === green) {
             won++;
             timesTaken.push(timeTaken);
+            timeElement.textContent = `${Math.floor(timeTaken)} ms`;
         } else {
             lost++;
             timesTaken.push(timeTaken+1000);
+            timeElement.textContent = `${Math.floor(timeTaken)} ms + 1000`;
         }
-        document.getElementById("time").textContent = `${Math.floor(timeTaken)} ms`;
         display();
         updateScore();
     }
@@ -153,8 +168,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return Math.floor(average)
     }
 
-    const timerElement = document.getElementById("timer");
-
     document.getElementById("startGame").addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
         display();
@@ -162,7 +175,9 @@ document.addEventListener("DOMContentLoaded", () => {
         startTimer();
     });
 
-    document.getElementById("retry_button").addEventListener("click", () => { resetGame(); });
+    document.getElementById("retry_button").addEventListener("click", () => {
+        resetGame();
+    });
 
     document.getElementById("reset_button").addEventListener("click", () => {
         localStorage.removeItem('scoreList');
@@ -185,24 +200,20 @@ document.addEventListener("DOMContentLoaded", () => {
         resetGame();
     });
 
-    document.getElementById("option1").addEventListener("click", () => {
-        handleOptionClick(document.getElementById("option1").textContent);
+    option1.addEventListener("click", () => {
+        handleOptionClick(option1.textContent);
     });
-    document.getElementById("option2").addEventListener("click", () => {
-        handleOptionClick(document.getElementById("option2").textContent);
+    option2.addEventListener("click", () => {
+        handleOptionClick(option2.textContent);
     });
-    document.getElementById("option3").addEventListener("click", () => {
-        handleOptionClick(document.getElementById("option3").textContent);
+    option3.addEventListener("click", () => {
+        handleOptionClick(option3.textContent);
     });
     document.addEventListener("keydown", (event) => handleOptionClick(event.key));
 
     document.getElementById("close").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
     });
-
-    const settingsIcon = document.getElementById("settingsIcon");
-    const checkIcon = document.getElementById("checkIcon");
-    const settingsContent = document.getElementById("settings");
 
     settingsIcon.addEventListener("click", settingsContentShow);
 
@@ -263,10 +274,8 @@ document.addEventListener("DOMContentLoaded", () => {
     resetButtons.forEach(button => {
         button.addEventListener("click", () => {
             const selectedColor = button.getAttribute("data-color");
-            const variableObj = colorInputs.find(variable => variable.id === selectedColor);
-            const valueObj = defaultColors.find(color => color.id === selectedColor);
-            const variable = variableObj.variable;
-            const value = valueObj.color;
+            const variable = colorInputs.find(variable => variable.id === selectedColor).variable;
+            const value = defaultColors.find(color => color.id === selectedColor).color;
             setColor(selectedColor, variable, value);
         });
     });
