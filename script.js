@@ -43,9 +43,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const whiteList = randomList;
 
-        greenList.forEach(num => { document.getElementById(num).style.backgroundColor = 'green'; });
-        redList.forEach(num => { document.getElementById(num).style.backgroundColor = 'red'; });
-        whiteList.forEach(num => { document.getElementById(num).style.backgroundColor = 'white'; });
+        function setColorClass(index, colorClass) {
+            const element = document.querySelector(`[data-index="${index}"]`)
+            element.classList.remove(...element.classList)
+            element.classList.add("square")
+            element.classList.add(colorClass)
+        }
+        
+        greenList.forEach(num => { setColorClass(num, "green") });
+        redList.forEach(num => { setColorClass(num, "red") });
+        whiteList.forEach(num => { setColorClass(num, "white") });
 
         let options = [green - 1, green, green + 1];
         do {
@@ -191,5 +198,76 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.getElementById("close").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
+    });
+
+    const settingsIcon = document.getElementById("settingsIcon");
+    const checkIcon = document.getElementById("checkIcon");
+    const settingsContent = document.getElementById("settings");
+
+    settingsIcon.addEventListener("click", settingsContentShow);
+
+    function settingsContentShow() {
+        settingsContent.style.display = "flex";
+        settingsIcon.removeEventListener("click", settingsContentShow);
+        checkIcon.addEventListener("click", settingsContentHide);
+    }
+    function settingsContentHide() {
+        settingsContent.style.display = "none";
+        checkIcon.removeEventListener("click", settingsContentHide);
+        settingsIcon.addEventListener("click", settingsContentShow);
+    }
+
+    function setColor(id, variable, value) {
+        document.documentElement.style.setProperty(variable, value);
+        localStorage.setItem(id, value);
+    }
+
+    const defaultColors = [
+        { id: "greenColor", color: "green"},
+        { id: "redColor", color: "red"},
+        { id: "whiteColor", color: "white"},
+        { id: "wonColor", color: "green"},
+        { id: "lostColor", color: "red"},
+        { id: "scoreColor", color: "blue"},
+        { id: "timerColor", color: "coral"},
+        { id: "boxColor", color: "yellow"},
+        { id: "optionColor", color: "burlywood"},
+        { id: "optionTextColor", color: "black"},
+        { id: "optionBackgroundColor", color: "white"},
+        { id: "optionHoverColor", color: "orange"},
+    ];    
+    const colorInputs = [
+        { id: "greenColor", variable: "--green-color"},
+        { id: "redColor", variable: "--red-color"},
+        { id: "whiteColor", variable: "--white-color"},
+        { id: "wonColor", variable: "--won-color" },
+        { id: "lostColor", variable: "--lost-color" },
+        { id: "scoreColor", variable: "--score-color" },
+        { id: "timerColor", variable: "--timer-color" },
+        { id: "boxColor", variable: "--box-color" },
+        { id: "optionColor", variable: "--option-color" },
+        { id: "optionTextColor", variable: "--option-text-color" },
+        { id: "optionBackgroundColor", variable: "--option-background-color" },
+        { id: "optionHoverColor", variable: "--option-hover-color" },
+    ];
+    
+    colorInputs.forEach(({ id, variable }) => {
+        let color = localStorage.getItem(id)
+        setColor(id, variable, color);
+        document.getElementById(id).addEventListener("input", function() {
+            setColor(id, variable, this.value);
+        });
+    });
+
+    const resetButtons = document.querySelectorAll(".fa-rotate-right");
+    resetButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const selectedColor = button.getAttribute("data-color");
+            const variableObj = colorInputs.find(variable => variable.id === selectedColor);
+            const valueObj = defaultColors.find(color => color.id === selectedColor);
+            const variable = variableObj.variable;
+            const value = valueObj.color;
+            setColor(selectedColor, variable, value);
+        });
     });
 });

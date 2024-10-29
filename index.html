@@ -32,7 +32,7 @@
             <p>Count the squares with green colour and click the button with according number</p>
             <button id="startGame" role="button" aria-label="Start game">Start Game</button>
         </div>
-    </div>    
+    </div>
     <div class="container">
         <div class="left">
             <div class="points">
@@ -52,28 +52,28 @@
             <div class="timer" id="timer" aria-live="polite">30:00</div>
             <div class="box">
                 <div class="row">
-                    <div class="square" id="1"></div>
-                    <div class="square" id="2"></div>
-                    <div class="square" id="3"></div>
-                    <div class="square" id="4"></div>
+                    <div class="square" data-index="1"></div>
+                    <div class="square" data-index="2"></div>
+                    <div class="square" data-index="3"></div>
+                    <div class="square" data-index="4"></div>
                 </div>
                 <div class="row">
-                    <div class="square" id="5"></div>
-                    <div class="square" id="6"></div>
-                    <div class="square" id="7"></div>
-                    <div class="square" id="8"></div>
+                    <div class="square" data-index="5"></div>
+                    <div class="square" data-index="6"></div>
+                    <div class="square" data-index="7"></div>
+                    <div class="square" data-index="8"></div>
                 </div>
                 <div class="row">
-                    <div class="square" id="9"></div>
-                    <div class="square" id="10"></div>
-                    <div class="square" id="11"></div>
-                    <div class="square" id="12"></div>
+                    <div class="square" data-index="9"></div>
+                    <div class="square" data-index="10"></div>
+                    <div class="square" data-index="11"></div>
+                    <div class="square" data-index="12"></div>
                 </div>
                 <div class="row">
-                    <div class="square" id="13"></div>
-                    <div class="square" id="14"></div>
-                    <div class="square" id="15"></div>
-                    <div class="square" id="16"></div>
+                    <div class="square" data-index="13"></div>
+                    <div class="square" data-index="14"></div>
+                    <div class="square" data-index="15"></div>
+                    <div class="square" data-index="16"></div>
                 </div>
             </div>
             <div class="options">
@@ -125,6 +125,75 @@
             <p>Score: <span id="finalScore">1000</span>ms</p>
             <p>Accuracy: <span id="accuracy">100</span>%</p>
             <button id="gameOverButton" role="button" aria-label="Retry game">Try Again</button>
+        </div>
+    </div>
+    <i class="fa fa-solid fa-gear fa-2x settingsIcon" id="settingsIcon"></i>
+    <div class="settings" id="settings">
+        <div class="content"">
+            <i class="fa fa-solid fa-check checkIcon" id="checkIcon"></i>
+            <fieldset>
+                <legend role="heading">SETTINGS</legend>
+                <div class="color-setting">
+                    <label for="greenColor">Green color:</label>
+                    <input type="color" id="greenColor" value="#008000">
+                    <i class="fa-solid fa-rotate-right" data-color="greenColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="redColor">Red color:</label>
+                    <input type="color" id="redColor" value="#ff0000">
+                    <i class="fa-solid fa-rotate-right" data-color="redColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="whiteColor">White color:</label>
+                    <input type="color" id="whiteColor" value="#ffffff">
+                    <i class="fa-solid fa-rotate-right" data-color="whiteColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="wonColor">Won color:</label>
+                    <input type="color" id="wonColor" value="#008000">
+                    <i class="fa-solid fa-rotate-right" data-color="wonColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="lostColor">Lost color:</label>
+                    <input type="color" id="lostColor" value="#ff0000">
+                    <i class="fa-solid fa-rotate-right" data-color="lostColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="scoreColor">Score color:</label>
+                    <input type="color" id="scoreColor" value="#0000ff">
+                    <i class="fa-solid fa-rotate-right" data-color="scoreColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="timerColor">Timer color:</label>
+                    <input type="color" id="timerColor" value="#ff7f50">
+                    <i class="fa-solid fa-rotate-right" data-color="timerColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="boxColor">Box color:</label>
+                    <input type="color" id="boxColor" value="#ffff00">
+                    <i class="fa-solid fa-rotate-right" data-color="boxColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="optionColor">Option color:</label>
+                    <input type="color" id="optionColor" value="#deb887">
+                    <i class="fa-solid fa-rotate-right" data-color="optionColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="optionTextColor">Option text color:</label>
+                    <input type="color" id="optionTextColor" value="#000000">
+                    <i class="fa-solid fa-rotate-right" data-color="optionTextColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="optionBackgroundColor">Option background color:</label>
+                    <input type="color" id="optionBackgroundColor" value="#ffffff">
+                    <i class="fa-solid fa-rotate-right" data-color="optionBackgroundColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="optionHoverColor">Option hover color:</label>
+                    <input type="color" id="optionHoverColor" value="#ffa500">
+                    <i class="fa-solid fa-rotate-right" data-color="optionHoverColor"></i><br>
+                </div>
+            </fieldset>
         </div>
     </div>
     <script src="script.js"></script>
