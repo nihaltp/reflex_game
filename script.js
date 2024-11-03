@@ -12,6 +12,7 @@ const defaultColors = [
     { id: "optionTextColor", color: "black"},
     { id: "optionBackgroundColor", color: "white"},
     { id: "optionHoverColor", color: "orange"},
+    { id: "thirdBackgroundColor", color: "lightblue"},
 ];    
 const colorInputs = [
     { id: "greenColor", variable: "--green-color"},
@@ -26,6 +27,7 @@ const colorInputs = [
     { id: "optionTextColor", variable: "--option-text-color" },
     { id: "optionBackgroundColor", variable: "--option-background-color" },
     { id: "optionHoverColor", variable: "--option-hover-color" },
+    { id: "thirdBackgroundColor", variable: "--third-background-color" },
 ];
 
 let scores = localStorage.getItem('scoreList');
