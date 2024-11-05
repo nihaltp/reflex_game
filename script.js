@@ -300,6 +300,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const settingsContent = document.getElementById("settings");
     const deleteButtons = document.querySelectorAll(".delete");
     const resetButtons = document.querySelectorAll(".fa-rotate-right");
+    const resetAll = document.getElementById("resetAll");
 
     initializeColorInputs();
 
@@ -364,6 +365,14 @@ document.addEventListener("DOMContentLoaded", () => {
             const variable = colorInputs.find(variable => variable.id === selectedColor).variable;
             const value = defaultColors.find(color => color.id === selectedColor).color;
             setColor(selectedColor, variable, value);
+        });
+    });
+    
+    resetAll.addEventListener("click", () => {
+        defaultColors.forEach(({ id, color }) => {
+            const variable = colorInputs.find(variable => variable.id === id).variable;
+            setColor(id, variable, color);
+            settingsContentHide();
         });
     });
 });

@@ -433,6 +433,25 @@ button#gameOverButton:hover {
     margin-right: 10px;
 }
 
+.color-setting:last-child {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px; /* Adjust spacing if needed */
+}
+
+#resetAll {
+    padding: 8px 16px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#resetAll:hover {
+    background-color: red;
+}
+
 @media (min-width: 1000px) {
     .container {
         flex-direction: row;
