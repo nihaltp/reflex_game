@@ -1,19 +1,58 @@
 const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
-const defaultColors = [
-    { id: "greenColor", color: "green"},
-    { id: "redColor", color: "red"},
-    { id: "whiteColor", color: "white"},
-    { id: "wonColor", color: "green"},
-    { id: "lostColor", color: "red"},
-    { id: "scoreColor", color: "blue"},
-    { id: "timerColor", color: "coral"},
-    { id: "boxColor", color: "yellow"},
-    { id: "optionColor", color: "burlywood"},
-    { id: "optionTextColor", color: "black"},
-    { id: "optionBackgroundColor", color: "white"},
-    { id: "optionHoverColor", color: "orange"},
-    { id: "thirdBackgroundColor", color: "lightblue"},
-];    
+const lightDefaultColors = [
+    { id: "greenColor", color: "#008000"},
+    { id: "redColor", color: "#ff0000"},
+    { id: "whiteColor", color: "#ffffff"},
+    { id: "wonColor", color: "#008000"},
+    { id: "lostColor", color: "#ff0000"},
+    { id: "scoreColor", color: "#0000ff"},
+    { id: "timerColor", color: "#ff7f50"},
+    { id: "boxColor", color: "#ffff00"},
+    { id: "optionColor", color: "#deb887"},
+    { id: "optionTextColor", color: "#000000"},
+    { id: "optionBackgroundColor", color: "#ffffff"},
+    { id: "optionHoverColor", color: "#ffa500"},
+    { id: "hoverColor", color: "#0b7dda"},
+    { id: "primaryColor", color: "#2196F3"},
+    { id: "backgroundColor", color: "#ffffff"},
+    { id: "secondaryBackgroundColor", color: "#ebebeb"},
+    { id: "thirdBackgroundColor", color: "#add8e6"},
+    { id: "overlayColor", color: "#00000080"},
+    { id: "faColor", color: "#aaa"},
+    { id: "whiteText", color: "#ffffff"},
+    { id: "redText", color: "#ff0000"},
+    { id: "blackText", color: "#000000"},
+    { id: "redBackground", color: "#ff0000"},
+    { id: "blackBorder", color: "#000000"},
+    { id: "iconColor", color: "#555555"},
+];
+const darkDefaultColors = [
+    { id: "greenColor", color: "#00e673" },  // Vibrant green for visibility
+    { id: "redColor", color: "#ff4d4d" },    // Bright red for clear contrast
+    { id: "whiteColor", color: "#f5f5f5" },  // Very light grey to resemble white on dark theme
+    { id: "wonColor", color: "#00e673" },    // Same vibrant green for success
+    { id: "lostColor", color: "#ff4d4d" },   // Match with bright red for failures
+    { id: "scoreColor", color: "#66b3ff" },  // Brighter blue for score
+    { id: "timerColor", color: "#ffa366" },  // Soft orange for timer
+    { id: "boxColor", color: "#ffff99" },    // Light yellow for box
+    { id: "optionColor", color: "#b8860b" }, // Golden for option color
+    { id: "optionTextColor", color: "#ffffff" },  // Pure white for visibility
+    { id: "optionBackgroundColor", color: "#333333" }, // Dark grey for options background
+    { id: "optionHoverColor", color: "#ffcc80" },  // Light orange for hover
+    { id: "hoverColor", color: "#5fa6e2" },  // Light blue for hover effect
+    { id: "primaryColor", color: "#4da6ff" },  // Bright blue for primary color
+    { id: "backgroundColor", color: "#2a2a2a" }, // Dark grey background
+    { id: "secondaryBackgroundColor", color: "#3a3a3a" }, // Lighter secondary background
+    { id: "thirdBackgroundColor", color: "#4b6070" },  // Light blue-grey for contrast
+    { id: "overlayColor", color: "#00000080" },  // Semi-transparent overlay
+    { id: "faColor", color: "#cccccc" },  // Light grey for icons
+    { id: "whiteText", color: "#ffffff" }, // Pure white for text
+    { id: "redText", color: "#ff6666" },  // Lighter red for text
+    { id: "blackText", color: "#ffffff" }, // Pure white for dark theme text
+    { id: "redBackground", color: "#e60000" },  // Bright red background for warning
+    { id: "blackBorder", color: "#666666" },  // Light grey for borders
+    { id: "iconColor", color: "#dddddd"},
+];
 const colorInputs = [
     { id: "greenColor", variable: "--green-color"},
     { id: "redColor", variable: "--red-color"},
@@ -27,13 +66,24 @@ const colorInputs = [
     { id: "optionTextColor", variable: "--option-text-color" },
     { id: "optionBackgroundColor", variable: "--option-background-color" },
     { id: "optionHoverColor", variable: "--option-hover-color" },
+    { id: "hoverColor", variable: "--hover-color"},
+    { id: "primaryColor", variable: "--primary-color"},
+    { id: "backgroundColor", variable: "--background-color"},
+    { id: "secondaryBackgroundColor", variable: "--secondary-background-color"},
     { id: "thirdBackgroundColor", variable: "--third-background-color" },
+    { id: "overlayColor", variable: "--overlay-color"},
+    { id: "faColor", variable: "--fa-color"},
+    { id: "whiteText", variable: "--white-text"},
+    { id: "redText", variable: "--red-text"},
+    { id: "blackText", variable: "--black-text"},
+    { id: "redBackground", variable: "--red-background"},
+    { id: "blackBorder", variable: "--black-border"},
+    { id: "iconColor", variable: "--icon-color"},
 ];
 
-let scores = localStorage.getItem('scoreList');
-scores = scores ? JSON.parse(scores) : initializeScores();
-let colors = localStorage.getItem('colorsList');
-colors = colors ? JSON.parse(colors) : initializeColors();
+let scores = getOrInitializeFromStorage('scoreList', initializeScores);
+let lightColors = getOrInitializeFromStorage('lightColorsList', initializeLightColors);
+let darkColors = getOrInitializeFromStorage('darkColorsList', initializeDarkColors);
 
 let startTime;
 let currentTime;
@@ -47,14 +97,32 @@ let greenCount;
 let timesTaken = [];
 let previousGreenCount = -1;
 let previousGreenIndex = -1;
+let theme;
 
 function initializeScores() {
     return ["N/A", "N/A", "N/A", "N/A", "N/A"];
 }
 
-function initializeColors() {
-    saveList("colorsList", defaultColors);
-    return defaultColors.map(color => color.color);
+function initializeLightColors() {
+    saveList("lightColorsList", lightDefaultColors);
+    return lightDefaultColors;
+}
+
+function initializeDarkColors() {
+    saveList("darkColorsList", darkDefaultColors);
+    return darkDefaultColors;
+}
+
+function getOrInitializeFromStorage(key, initializer) {
+    let data = localStorage.getItem(key);
+    if (data) {
+        return JSON.parse(data);
+    } else {
+        // Initialize and save default value
+        const defaultValue = initializer();
+        localStorage.setItem(key, JSON.stringify(defaultValue));
+        return defaultValue;
+    }
 }
 
 function compareRandom() {
@@ -265,29 +333,42 @@ function resetGame(timerElement, timeElement, optionElements) {
     startTimer(timerElement);
 }
 
-function initializeColorInputs() {
+function initializeColorInputs(oldTheme) {
+    const colors = oldTheme === "light" ? lightColors : darkColors;
+    const getDefaultColor = oldTheme === "light" ? getLightDefaultColor : getDarkDefaultColor;
     colorInputs.forEach(({ id, variable }) => {
         let color = colors.find(color => color.id === id)?.color || getDefaultColor(id);
-        setColor(id, variable, color);
-        document.getElementById(id).addEventListener("input", function() {
-            setColor(id, variable, this.value);
-        });
+        setColor(id, variable, color, oldTheme);
+        const element = document.getElementById(id);
+        if (element) {
+            element.removeEventListener("input", handleInput);
+            function handleInput() {
+                setColor(id, variable, this.value, theme);
+            };
+            element.addEventListener("input", handleInput);
+        }
     });
 }
 
-function getDefaultColor(id) {
-    return defaultColors.find(color => color.id === id).color;
+function getLightDefaultColor(id) {
+    return lightDefaultColors.find(color => color.id === id).color;
 }
 
-function setColor(id, variable, value) {
+function getDarkDefaultColor(id) {
+    return darkDefaultColors.find(color => color.id === id).color;
+}
+
+function setColor(id, variable, value, newTheme) {
     document.documentElement.style.setProperty(variable, value);
+    const colors = newTheme === "light" ? lightColors : darkColors;
     let colorToUpdate = colors.find(color => color.id === id);
     if (colorToUpdate) {
         colorToUpdate.color = value;
     } else {
         colors.push({ id, color: value });
     }
-    saveList("colorsList", colors);
+    const colorsList = newTheme === "light" ? "lightColorsList" : "darkColorsList";
+    saveList(colorsList, colors);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -295,14 +376,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const timerElement = document.getElementById("timer");
     const timeElement = document.getElementById("time");
     const optionElements = [document.getElementById("option1"), document.getElementById("option2"), document.getElementById("option3")];
+    const changeTheme = document.getElementById("changeTheme");
     const settingsIcon = document.getElementById("settingsIcon");
     const checkIcon = document.getElementById("checkIcon");
     const settingsContent = document.getElementById("settings");
     const deleteButtons = document.querySelectorAll(".delete");
     const resetButtons = document.querySelectorAll(".fa-rotate-right");
     const resetAll = document.getElementById("resetAll");
+    
+    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
 
-    initializeColorInputs();
+    initializeColorInputs(theme);
 
     function settingsContentShow() {
         settingsContent.style.display = "flex";
@@ -357,22 +441,35 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("gameOver").style.display = "none";
     });
 
+    changeTheme.addEventListener("click", () => {
+        if (theme === "light") {
+            theme = "dark";
+        } else {
+            theme = "light";
+        }
+        initializeColorInputs(theme);
+    });
+
     settingsIcon.addEventListener("click", settingsContentShow);
     
     resetButtons.forEach(button => {
+        const colors = theme === "light" ? lightDefaultColors : darkDefaultColors;
         button.addEventListener("click", () => {
             const selectedColor = button.getAttribute("data-color");
             const variable = colorInputs.find(variable => variable.id === selectedColor).variable;
-            const value = defaultColors.find(color => color.id === selectedColor).color;
-            setColor(selectedColor, variable, value);
+            const value = colors.find(color => color.id === selectedColor).color;
+            setColor(selectedColor, variable, value, theme);
         });
     });
     
     resetAll.addEventListener("click", () => {
-        defaultColors.forEach(({ id, color }) => {
+        const colors = theme === "light" ? lightDefaultColors : darkDefaultColors;
+        colors.forEach(({ id, color }) => {
             const variable = colorInputs.find(variable => variable.id === id).variable;
-            setColor(id, variable, color);
-            settingsContentHide();
+            if (variable) {
+                setColor(id, variable, color, theme);
+            }
         });
+        settingsContentHide();
     });
 });

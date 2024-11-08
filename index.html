@@ -127,79 +127,140 @@
             <button id="gameOverButton" role="button" aria-label="Retry game">Try Again</button>
         </div>
     </div>
-    <i class="fa fa-solid fa-gear fa-2x settingsIcon" id="settingsIcon"></i>
+    <i class="fa fa-solid fa-circle-half-stroke fa-2x changeTheme icon" id="changeTheme"></i>
+    <i class="fa fa-solid fa-gear fa-2x settingsIcon icon" id="settingsIcon"></i>
     <div class="settings" id="settings">
         <div class="content"">
             <i class="fa fa-solid fa-check checkIcon" id="checkIcon"></i>
             <fieldset>
                 <legend role="heading">SETTINGS</legend>
                 <div class="color-setting">
-                    <label for="greenColor">Green color:</label>
+                    <input type="button" id="resetAll" value="Reset All">
+                </div>
+                <div class="color-setting">
+                    <label for="greenColor">Green color</label>
                     <input type="color" id="greenColor" value="#008000">
                     <i class="fa-solid fa-rotate-right" data-color="greenColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="redColor">Red color:</label>
+                    <label for="redColor">Red color</label>
                     <input type="color" id="redColor" value="#ff0000">
                     <i class="fa-solid fa-rotate-right" data-color="redColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="whiteColor">White color:</label>
+                    <label for="whiteColor">White color</label>
                     <input type="color" id="whiteColor" value="#ffffff">
                     <i class="fa-solid fa-rotate-right" data-color="whiteColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="wonColor">Won color:</label>
+                    <label for="wonColor">Won color</label>
                     <input type="color" id="wonColor" value="#008000">
                     <i class="fa-solid fa-rotate-right" data-color="wonColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="lostColor">Lost color:</label>
+                    <label for="lostColor">Lost color</label>
                     <input type="color" id="lostColor" value="#ff0000">
                     <i class="fa-solid fa-rotate-right" data-color="lostColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="scoreColor">Score color:</label>
+                    <label for="scoreColor">Score color</label>
                     <input type="color" id="scoreColor" value="#0000ff">
                     <i class="fa-solid fa-rotate-right" data-color="scoreColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="timerColor">Timer color:</label>
+                    <label for="timerColor">Timer color</label>
                     <input type="color" id="timerColor" value="#ff7f50">
                     <i class="fa-solid fa-rotate-right" data-color="timerColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="boxColor">Box color:</label>
+                    <label for="boxColor">Box color</label>
                     <input type="color" id="boxColor" value="#ffff00">
                     <i class="fa-solid fa-rotate-right" data-color="boxColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="optionColor">Option color:</label>
+                    <label for="optionColor">Option color</label>
                     <input type="color" id="optionColor" value="#deb887">
                     <i class="fa-solid fa-rotate-right" data-color="optionColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="optionTextColor">Option text color:</label>
+                    <label for="optionTextColor">Option text color</label>
                     <input type="color" id="optionTextColor" value="#000000">
                     <i class="fa-solid fa-rotate-right" data-color="optionTextColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="optionBackgroundColor">Option background color:</label>
+                    <label for="optionBackgroundColor">Option background color</label>
                     <input type="color" id="optionBackgroundColor" value="#ffffff">
                     <i class="fa-solid fa-rotate-right" data-color="optionBackgroundColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="optionHoverColor">Option hover color:</label>
+                    <label for="optionHoverColor">Option hover color</label>
                     <input type="color" id="optionHoverColor" value="#ffa500">
                     <i class="fa-solid fa-rotate-right" data-color="optionHoverColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <label for="thirdBackgroundColor">Third background color:</label>
+                    <label for="primaryColor">Primary color</label>
+                    <input type="color" id="primaryColor" value="#2196F3">
+                    <i class="fa-solid fa-rotate-right" data-color="primaryColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="backgroundColor">Background color</label>
+                    <input type="color" id="backgroundColor" value="#ffffff">
+                    <i class="fa-solid fa-rotate-right" data-color="backgroundColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="secondaryBackgroundColor">Secondary background color</label>
+                    <input type="color" id="secondaryBackgroundColor" value="#ebebeb">
+                    <i class="fa-solid fa-rotate-right" data-color="secondaryBackgroundColor"></i><br>
+                </div>
+                <div class="color-setting">
+                    <label for="thirdBackgroundColor">Third background color</label>
                     <input type="color" id="thirdBackgroundColor" value="#add8e6">
                     <i class="fa-solid fa-rotate-right" data-color="thirdBackgroundColor"></i><br>
                 </div>
                 <div class="color-setting">
-                    <input type="button" id="resetAll" value="Reset All">
+                    <label for="hoverColor">Hover color</label>
+                    <input type="color" id="hoverColor" value="#0b7dda">
+                    <i class="fa-solid fa-rotate-right" data-color="hoverColor"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="overlayColor">Overlay Color</label>
+                    <input type="color" id="overlayColor" value="#000000">
+                    <i class="fa-solid fa-rotate-right" data-color="overlayColor"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="faColor">fa Icon Color</label>
+                    <input type="color" id="faColor" value="#aaaaaa">
+                    <i class="fa-solid fa-rotate-right" data-color="faColor"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="whiteText">White Text Color</label>
+                    <input type="color" id="whiteText" value="#ffffff">
+                    <i class="fa-solid fa-rotate-right" data-color="whiteText"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="redText">Red Text color</label>
+                    <input type="color" id="redText" value="#ff0000">
+                    <i class="fa-solid fa-rotate-right" data-color="redText"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="blackText">Black Text color</label>
+                    <input type="color" id="blackText" value="#000000">
+                    <i class="fa-solid fa-rotate-right" data-color="blackText"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="redBackground">Red Background color</label>
+                    <input type="color" id="redBackground" value="#ff0000">
+                    <i class="fa-solid fa-rotate-right" data-color="redBackground"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="blackBorder">Black Border color</label>
+                    <input type="color" id="blackBorder" value="#000000">
+                    <i class="fa-solid fa-rotate-right" data-color="blackBorder"></i>
+                </div>
+                <div class="color-setting">
+                    <label for="iconColor">Icon Color</label>
+                    <input type="color" id="iconColor" value="#dddddd">
+                    <i class="fa-solid fa-rotate-right" data-color="iconColor"</i>
                 </div>
             </fieldset>
         </div>
