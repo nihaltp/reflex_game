@@ -1,4 +1,4 @@
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16];
+const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,];
 const lightDefaultColors = [
     { id: "greenColor", color: "#008000"},
     { id: "redColor", color: "#ff0000"},
@@ -27,30 +27,30 @@ const lightDefaultColors = [
     { id: "iconColor", color: "#555555"},
 ];
 const darkDefaultColors = [
-    { id: "greenColor", color: "#00e673" },  // Vibrant green for visibility
-    { id: "redColor", color: "#ff4d4d" },    // Bright red for clear contrast
-    { id: "whiteColor", color: "#f5f5f5" },  // Very light grey to resemble white on dark theme
-    { id: "wonColor", color: "#00e673" },    // Same vibrant green for success
-    { id: "lostColor", color: "#ff4d4d" },   // Match with bright red for failures
-    { id: "scoreColor", color: "#66b3ff" },  // Brighter blue for score
-    { id: "timerColor", color: "#ffa366" },  // Soft orange for timer
-    { id: "boxColor", color: "#ffff99" },    // Light yellow for box
-    { id: "optionColor", color: "#b8860b" }, // Golden for option color
-    { id: "optionTextColor", color: "#ffffff" },  // Pure white for visibility
-    { id: "optionBackgroundColor", color: "#333333" }, // Dark grey for options background
-    { id: "optionHoverColor", color: "#ffcc80" },  // Light orange for hover
-    { id: "hoverColor", color: "#5fa6e2" },  // Light blue for hover effect
-    { id: "primaryColor", color: "#4da6ff" },  // Bright blue for primary color
-    { id: "backgroundColor", color: "#2a2a2a" }, // Dark grey background
-    { id: "secondaryBackgroundColor", color: "#3a3a3a" }, // Lighter secondary background
-    { id: "thirdBackgroundColor", color: "#4b6070" },  // Light blue-grey for contrast
-    { id: "overlayColor", color: "#00000080" },  // Semi-transparent overlay
-    { id: "faColor", color: "#cccccc" },  // Light grey for icons
-    { id: "whiteText", color: "#ffffff" }, // Pure white for text
-    { id: "redText", color: "#ff6666" },  // Lighter red for text
-    { id: "blackText", color: "#ffffff" }, // Pure white for dark theme text
-    { id: "redBackground", color: "#e60000" },  // Bright red background for warning
-    { id: "blackBorder", color: "#666666" },  // Light grey for borders
+    { id: "greenColor", color: "#00e673" },
+    { id: "redColor", color: "#ff4d4d" },
+    { id: "whiteColor", color: "#f5f5f5" },
+    { id: "wonColor", color: "#00e673" },
+    { id: "lostColor", color: "#ff4d4d" },
+    { id: "scoreColor", color: "#66b3ff" },
+    { id: "timerColor", color: "#ffa366" },
+    { id: "boxColor", color: "#ffff99" },
+    { id: "optionColor", color: "#b8860b" },
+    { id: "optionTextColor", color: "#ffffff" },
+    { id: "optionBackgroundColor", color: "#333333" },
+    { id: "optionHoverColor", color: "#ffcc80" },
+    { id: "hoverColor", color: "#5fa6e2" },
+    { id: "primaryColor", color: "#4da6ff" },
+    { id: "backgroundColor", color: "#2a2a2a" },
+    { id: "secondaryBackgroundColor", color: "#3a3a3a" },
+    { id: "thirdBackgroundColor", color: "#4b6070" },
+    { id: "overlayColor", color: "#00000080" },
+    { id: "faColor", color: "#cccccc" },
+    { id: "whiteText", color: "#ffffff" },
+    { id: "redText", color: "#ff6666" },
+    { id: "blackText", color: "#ffffff" },
+    { id: "redBackground", color: "#e60000" },
+    { id: "blackBorder", color: "#666666" },
     { id: "iconColor", color: "#dddddd"},
 ];
 const colorInputs = [
@@ -80,24 +80,49 @@ const colorInputs = [
     { id: "blackBorder", variable: "--black-border"},
     { id: "iconColor", variable: "--icon-color"},
 ];
+const gameState = {
+    won: 0,
+    lost: 0,
+    score: 0,
+    greenCount: 0,
+    timesTaken: [],
+    previousGreenCount: -1,
+    previousGreenIndex: -1,
+    
+    startTime: 0,
+    currentTime: 0,
+    timeTaken: 0,
+    timeInMilliseconds: 30000,
+    timerInterval: 0,
+    theme: null,
+    
+    reset() {
+        this.won = 0;
+        this.lost = 0;
+        this.score = 0;
+        this.timesTaken = [];
+        this.timeInMilliseconds = 30000;
+    },
+    
+    recordStartTime() {
+        this.startTime = new Date();
+    },
+    
+    recordCurrentTime() {
+        this.currentTime = new Date();
+    },
+    
+    recordTimeTaken() {
+        if (this.startTime && this.currentTime) {
+            this.timeTaken =  this.currentTime - this.startTime;
+        }
+    }
+    
+};
 
 let scores = getOrInitializeFromStorage('scoreList', initializeScores);
 let lightColors = getOrInitializeFromStorage('lightColorsList', initializeLightColors);
 let darkColors = getOrInitializeFromStorage('darkColorsList', initializeDarkColors);
-
-let startTime;
-let currentTime;
-let timeTaken;
-let timeInMilliseconds = 30000
-let timerInterval;
-let won = 0;
-let lost = 0;
-let score = 0;
-let greenCount;
-let timesTaken = [];
-let previousGreenCount = -1;
-let previousGreenIndex = -1;
-let theme;
 
 function initializeScores() {
     return ["N/A", "N/A", "N/A", "N/A", "N/A"];
@@ -137,18 +162,6 @@ function getShuffledList(shuffleList) {
     return [...shuffleList].sort(compareRandom);
 }
 
-function recordStartTime() {
-    startTime = new Date();
-}
-
-function recordCurrentTime() {
-    currentTime = new Date();
-}
-
-function recordTimeTaken() {
-    timeTaken =  currentTime - startTime;
-}
-
 function calculateAverageTime(timeList, timeLeft) {
     if (timeList.length === 0) return "N/A";
     const total = timeList.reduce((acc, time) => acc + time, 0);
@@ -163,29 +176,29 @@ function display(optionElements) {
     let options = getOptions();
     renderSquares(greenList, redList, whiteList);
     renderOptions(options, optionElements);
-    recordStartTime();
+    gameState.recordStartTime();
 }
 
 function getGreenCount() {
     do {
-        greenCount = getRandomInt(4, 8);
-    } while (previousGreenCount == greenCount);
-    previousGreenCount = greenCount;
+        gameState.greenCount = getRandomInt(4, 8);
+    } while (gameState.previousGreenCount == gameState.greenCount);
+    gameState.previousGreenCount = gameState.greenCount;
 }
 
 function getOptions() {
-    let options = [greenCount - 1, greenCount, greenCount + 1];
+    let options = [gameState.greenCount - 1, gameState.greenCount, gameState.greenCount + 1];
     do {
         options.sort(compareRandom);
-    } while (options[previousGreenIndex] == greenCount);
-    previousGreenIndex = options.indexOf(greenCount);
+    } while (options[gameState.previousGreenIndex] == gameState.greenCount);
+    gameState.previousGreenIndex = options.indexOf(gameState.greenCount);
     return options;
 }
 
 function getList(randomList) {
-    const redCount = getRandomInt(4, 11 - greenCount);
-    const greenList = randomList.slice(0, greenCount);
-    randomList.splice(0, greenCount);
+    const redCount = getRandomInt(4, 11 - gameState.greenCount);
+    const greenList = randomList.slice(0, gameState.greenCount);
+    randomList.splice(0, gameState.greenCount);
     const redList = randomList.slice(0, redCount);
     randomList.splice(0, redCount);
     const whiteList = randomList;
@@ -200,8 +213,14 @@ function renderSquares(greenList, redList, whiteList) {
 
 function renderDisplay(colorsList, color) {
     colorsList.forEach(num => {
-        setColorClass(num, color);
+        setColorClass(num, "square", color);
     });
+}
+
+function setColorClass(index, ...colorClasses) {
+    const element = document.querySelector(`[data-index="${index}"]`);
+    element.classList.remove(...element.classList);
+    element.classList.add(...colorClasses);
 }
 
 function updateDisplay(scores, currentScore = "N/A") {
@@ -212,8 +231,9 @@ function updateDisplay(scores, currentScore = "N/A") {
 }
 
 function sortScores(scores) {
-    scores = scores.filter(score => !isNaN(score)).sort((a, b) => a - b);
-    scores = scores.slice(0, 5);
+    const validScores = scores.filter(score => !isNaN(score));
+    validScores.sort((a, b) => a - b);
+    scores = validScores.slice(0, 5);
     saveList('scoreList', scores);
     updateScores(scores);
     return scores;
@@ -236,72 +256,64 @@ function renderOptions(options, optionElements) {
     });
 }
 
-function setColorClass(index, colorClass) {
-    const element = document.querySelector(`[data-index="${index}"]`)
-    element.classList.remove(...element.classList)
-    element.classList.add("square")
-    element.classList.add(colorClass)
-}
-
 function updateScoreDisplay() {
-    document.getElementById("won").textContent = won;
-    document.getElementById("lost").textContent = lost;
+    document.getElementById("won").textContent = gameState.won;
+    document.getElementById("lost").textContent = gameState.lost;
     
-    score = won - lost;
-    document.getElementById("score").textContent = score;
+    gameState.score = gameState.won - gameState.lost;
+    document.getElementById("score").textContent = gameState.score;
 }
 
 function resetValues(timerElement, timeElement) {
-    timeInMilliseconds = 30000;
-    timerElement.textContent = "30:00";
+    gameState.reset()
     timeElement.textContent = "0ms";
-    won = 0;
-    lost = 0;
-    timesTaken = [];
+    updateTimerDisplay(timerElement);
+    updateScoreDisplay();
 }
 
 function handleOptionClick(optionText, timeElement, optionElements) {
     if (!(optionText>='0' && optionText<='9')) {
         return;
     }
-    recordCurrentTime();
-    recordTimeTaken();
+    gameState.recordCurrentTime();
+    gameState.recordTimeTaken();
     
-    if (parseInt(optionText) === greenCount) {
-        handleCorrectOption(timeTaken, timeElement);
+    if (parseInt(optionText) === gameState.greenCount) {
+        handleCorrectOption(gameState.timeTaken, timeElement);
     } else {
-        handleIncorrectOption(timeTaken, timeElement);
+        handleIncorrectOption(gameState.timeTaken, timeElement);
     }
     display(optionElements);
     updateScoreDisplay();
 }
 
 function handleIncorrectOption(timeTaken, timeElement) {
-    lost++;
-    timesTaken.push(timeTaken + 1000);
+    gameState.lost++;
+    gameState.timesTaken.push(timeTaken + 1000);
     timeElement.textContent = `${Math.floor(timeTaken)} ms + 1000`;
 }
 
 function handleCorrectOption(timeTaken, timeElement) {
-    won++;
-    timesTaken.push(timeTaken);
+    gameState.won++;
+    gameState.timesTaken.push(timeTaken);
     timeElement.textContent = `${Math.floor(timeTaken)} ms`;
 }
 
 function updateTimerDisplay(timerElement) {
-    const seconds = Math.floor(timeInMilliseconds / 1000).toString().padStart(2, '0');
-    const remainingMilliseconds = timeInMilliseconds % 1000;
-    const milliseconds = Math.floor(remainingMilliseconds / 10).toString().padStart(2, '0');
-    timerElement.textContent = `${seconds}:${milliseconds}`;
+    const seconds = Math.floor(gameState.timeInMilliseconds / 1000);
+    const milliseconds = Math.floor((gameState.timeInMilliseconds % 1000) / 10);
+    const formattedTime = `${seconds < 10 ? '0' : ''}${seconds}:${milliseconds < 10 ? '0' : ''}${milliseconds}`;
+    timerElement.textContent = formattedTime;
 }
+
 
 function handleGameOver(timerElement) {
     stopTimer();
     timerElement.textContent = "00:00";
-    recordCurrentTime();
-    recordTimeTaken();
-    const averageTime = calculateAverageTime(timesTaken, timeTaken);
-    accuracy = (score / (won + lost)) * 100;
+    gameState.recordCurrentTime();
+    gameState.recordTimeTaken();
+    const averageTime = calculateAverageTime(gameState.timesTaken, gameState.timeTaken);
+    accuracy = (gameState.score / (gameState.won + gameState.lost)) * 100;
     updateDisplay(scores, averageTime);
     document.getElementById("finalScore").textContent = averageTime;
     document.getElementById("accuracy").textContent = accuracy.toFixed(2);
@@ -309,16 +321,16 @@ function handleGameOver(timerElement) {
 }
 
 function startTimer(timerElement) {
-    timerInterval = setInterval(() => updateTimer(timerElement), 50);
+    gameState.timerInterval = setInterval(() => updateTimer(timerElement), 50);
 }
 
 function stopTimer() {
-    clearInterval(timerInterval);
+    clearInterval(gameState.timerInterval);
 }
 
 function updateTimer(timerElement) {
-    timeInMilliseconds -= 50;
-    if (timeInMilliseconds < 0) {
+    gameState.timeInMilliseconds -= 50;
+    if (gameState.timeInMilliseconds < 0) {
         handleGameOver(timerElement);
     } else {
         updateTimerDisplay(timerElement);
@@ -343,7 +355,7 @@ function initializeColorInputs(oldTheme) {
         if (element) {
             element.removeEventListener("input", handleInput);
             function handleInput() {
-                setColor(id, variable, this.value, theme);
+                setColor(id, variable, this.value, gameState.theme);
             };
             element.addEventListener("input", handleInput);
         }
@@ -384,19 +396,27 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButtons = document.querySelectorAll(".fa-rotate-right");
     const resetAll = document.getElementById("resetAll");
     
-    theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
+    gameState.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
 
-    initializeColorInputs(theme);
+    initializeColorInputs(gameState.theme);
 
     function settingsContentShow() {
         settingsContent.style.display = "flex";
         settingsIcon.removeEventListener("click", settingsContentShow);
+        settingsIcon.removeEventListener("keydown", handleSettingsEvent);
         checkIcon.addEventListener("click", settingsContentHide);
     }
     function settingsContentHide() {
         settingsContent.style.display = "none";
         checkIcon.removeEventListener("click", settingsContentHide);
         settingsIcon.addEventListener("click", settingsContentShow);
+        settingsIcon.addEventListener("keydown", handleSettingsEvent);
+    }
+
+    function handleSettingsEvent(event) {
+        if (event.type === "click" || (event.type === "keydown" && event.key === "Enter")) {
+            settingsContentShow();
+        }
     }
 
     startGameElement.addEventListener("click", () => {
@@ -442,32 +462,33 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     changeTheme.addEventListener("click", () => {
-        if (theme === "light") {
-            theme = "dark";
+        if (gameState.theme === "light") {
+            gameState.theme = "dark";
         } else {
-            theme = "light";
+            gameState.theme = "light";
         }
-        initializeColorInputs(theme);
+        initializeColorInputs(gameState.theme);
     });
 
     settingsIcon.addEventListener("click", settingsContentShow);
+    settingsIcon.addEventListener("keydown", handleSettingsEvent);
     
     resetButtons.forEach(button => {
-        const colors = theme === "light" ? lightDefaultColors : darkDefaultColors;
+        const colors = gameState.theme === "light" ? lightDefaultColors : darkDefaultColors;
         button.addEventListener("click", () => {
             const selectedColor = button.getAttribute("data-color");
             const variable = colorInputs.find(variable => variable.id === selectedColor).variable;
             const value = colors.find(color => color.id === selectedColor).color;
-            setColor(selectedColor, variable, value, theme);
+            setColor(selectedColor, variable, value, gameState.theme);
         });
     });
     
     resetAll.addEventListener("click", () => {
-        const colors = theme === "light" ? lightDefaultColors : darkDefaultColors;
+        const colors = gameState.theme === "light" ? lightDefaultColors : darkDefaultColors;
         colors.forEach(({ id, color }) => {
             const variable = colorInputs.find(variable => variable.id === id).variable;
             if (variable) {
-                setColor(id, variable, color, theme);
+                setColor(id, variable, color, gameState.theme);
             }
         });
         settingsContentHide();

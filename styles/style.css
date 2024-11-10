@@ -1,3 +1,5 @@
+@import "colors.css";
+
 body, html {
     margin: 0;
     padding: 0;
@@ -48,7 +50,7 @@ body, html {
     transition: background-color 0.25s ease;
 }
 
-.startPopup button:hover {
+.startPopup button:hover, .startPopup button:focus {
     background-color: var(--hover-color);
 }
 
@@ -201,7 +203,7 @@ a {
     background-color: var(--option-background-color);
 }
 
-.option:hover {
+.option:hover, .option:focus{
     background-color: var(--option-hover-color);
 }
 
@@ -234,7 +236,7 @@ button#retry_button {
     color: var(--primary-color);
 }
 
-button#retry_button:hover {
+button#retry_button:hover, button#retry_button:focus {
     border-color: var(--primary-color);
 }
 
@@ -285,7 +287,7 @@ button#reset_button {
     background-color: transparent;
 }
 
-button#reset_button:hover {
+button#reset_button:hover, button#reset_button:focus {
     color: var(--white-text);
     background-color: var();
 }
@@ -304,13 +306,13 @@ button#reset_button:hover {
     background-color: rgba(0,0,0,0.4);
 }
 
-.content {
+.gameOver .content {
     margin: auto;
     padding: 1.25rem;
     width: 30%;
-    border: 1px solid #888;
+    border: 1px solid var(--icon-color);
     border-radius: 10px;
-    background-color: #fefefe;
+    background-color: var(--background-color);
 }
 
 .close {
@@ -338,7 +340,7 @@ button#gameOverButton {
     transition: border-color 0.25s ease;
 }
 
-button#gameOverButton:hover {
+button#gameOverButton:hover, button#gameOverButton:focus {
     border-color: var(--black-border);
 }
 
@@ -364,7 +366,7 @@ button#gameOverButton:hover {
     transition: all 0.5s ease-in-out;
 }
 
-.settingsIcon:hover {
+.settingsIcon:hover, .settingsIcon:focus {
     rotate: 28deg;
 }
 
@@ -396,7 +398,7 @@ button#gameOverButton:hover {
     transition: all 0.5s ease-out;
 }
 
-.settings .checkIcon:hover {
+.settings .checkIcon:hover, .settings .checkIcon:focus {
     transform: scale(1.2);
     transition: none;
 }
@@ -435,7 +437,7 @@ button#gameOverButton:hover {
     cursor: pointer;
 }
 
-#resetAll:hover {
+#resetAll:hover, #resetAll:focus {
     background-color: var(--red-text);
 }
 
