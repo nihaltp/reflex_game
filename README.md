@@ -18,8 +18,6 @@ Welcome to the Reflex Game! This is a fun and interactive web-based game designe
 
 ## Features
 
-## Features
-
 - **Multiple Themes**: Choose from various themes to customize your gaming experience.
 - **Dark and Light Mode**: Switch between dark theme and light theme for comfortable gameplay based on your preference.
 - **High Score Tracking**: Compete against yourself and others by tracking your best scores.
