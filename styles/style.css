@@ -346,6 +346,7 @@ button#gameOverButton:hover, button#gameOverButton:focus {
 
 .icon {
     color: var(--icon-color);
+    font-size: 2em;
 }
 
 .changeTheme {
@@ -490,6 +491,10 @@ button#gameOverButton:hover, button#gameOverButton:focus {
 @media (max-width: 700px) {
     .content {
         width: 50%;
+    }
+    
+    .icon {
+        font-size: 1.5em;
     }
 }
 
