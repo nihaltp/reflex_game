@@ -396,7 +396,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButtons = document.querySelectorAll(".fa-rotate-right");
     const resetAll = document.getElementById("resetAll");
     
-    gameState.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark";
+    gameState.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 
     initializeColorInputs(gameState.theme);
 
