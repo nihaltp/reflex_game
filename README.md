@@ -35,4 +35,6 @@ Jump right in and test your reflexes! We hope you enjoy the game and have fun im
 
 ## Links
 
-[![LinkedIn](https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg)](https://www.linkedin.com/in/tp-nihal/?utm_source=github&utm_medium=repository&utm_campaign=reflex_game)
+<a href="https://www.linkedin.com/in/tp-nihal/?utm_source=github&utm_medium=repository&utm_campaign=reflex_game">
+  <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn" width="100">
+</a>
