@@ -293,7 +293,7 @@ button#reset_button {
 
 button#reset_button:hover, button#reset_button:focus {
     color: var(--white-text);
-    background-color: var();
+    background-color: var(--red-background);
 }
 
 .gameOver {
@@ -372,7 +372,7 @@ button#gameOverButton:hover, button#gameOverButton:focus {
 }
 
 .settingsIcon:hover, .settingsIcon:focus {
-    rotate: 28deg;
+    transform: rotate(28deg);
 }
 
 .settings {
