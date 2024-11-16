@@ -1,15 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-RW30K17GWW"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-
-        gtag('config', 'G-RW30K17GWW');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reaction Test</title>
@@ -36,11 +27,11 @@
     <script rel="preload" src="https://kit.fontawesome.com/c3cff5abce.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <div class="startPopup" id="startPopup" role="dialog" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
+    <div class="startPopup" id="startPopup" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
         <div class="content">
-            <h2 role="heading">Welcome to Reaction Test</h2>
-            <p>Count the squares with green colour and click the button with according number</p>
-            <button id="startGame" role="button" aria-label="Start game">Start Game</button>
+            <h1 role="dialog" aria-labelledby="welcomeTitle">Welcome to Reaction Test</h1>
+            <p role="dialog" aria-describedby="welcomeDescription">Count the squares with green colour and click the button with according number</p>
+            <button id="startGame" aria-label="Start game">Start Game</button>
         </div>
     </div>
     <div class="container">
@@ -87,12 +78,12 @@
                 </div>
             </div>
             <div class="options">
-                <button class="option" id="option1" role="button" aria-label="option 1">1</button>
-                <button class="option" id="option2" role="button" aria-label="option 2">2</button>
-                <button class="option" id="option3" role="button" aria-label="option 3">3</button>
+                <button class="option" id="option1" aria-label="option 1">1</button>
+                <button class="option" id="option2" aria-label="option 2">2</button>
+                <button class="option" id="option3" aria-label="option 3">3</button>
             </div>
             <div class="retry">
-                <button id="retry_button" role="button" aria-label="Retry game">Retry</button>
+                <button id="retry_button" aria-label="Retry game">Retry</button>
             </div>
         </div>
         <div class="right">
@@ -106,7 +97,7 @@
                     <div class="scores" id="top_5"><span class="score-text">5000</span><i class="fa-solid fa-trash delete" data-index="4" tabindex="0" role="button"></i></div>
                 </div>
                 <div class="reset">
-                    <button id="reset_button" role="button" aria-label="Reset game data">Reset Data</button>
+                    <button id="reset_button" aria-label="Reset game data">Reset Data</button>
                 </div>
                 <div>
                     <ul>
@@ -135,11 +126,11 @@
     </div>
     <div class="gameOver" id="gameOver" role="alert">
         <div class="content">
-            <span class="close" id="close" role="button" aria-label="close window" tabindex="0" role="button">&times;</span>
+            <span class="close" id="close" aria-label="close window" tabindex="0" role="button">&times;</span>
             <p>Game Over</p>
             <p>Score: <span id="finalScore">1000</span> ms</p>
             <p>Accuracy: <span id="accuracy">100</span>%</p>
-            <button id="gameOverButton" role="button" aria-label="Retry game">Try Again</button>
+            <button id="gameOverButton" aria-label="Retry game">Try Again</button>
         </div>
     </div>
     <i class="fa fa-solid fa-circle-half-stroke changeTheme icon" id="changeTheme" tabindex="0" role="button"></i>
@@ -148,7 +139,7 @@
         <div class="content">
             <i class="fa fa-solid fa-check checkIcon" id="checkIcon"></i>
             <fieldset>
-                <legend role="heading">SETTINGS</legend>
+                <legend>SETTINGS</legend>
                 <div class="color-setting">
                 <input type="button" id="resetAll" value="Reset All">
                 </div>
