@@ -1,4 +1,4 @@
-const list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,];
+const squares = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,];
 const lightDefaultColors = [
     { id: "greenColor", color: "#008000"},
     { id: "redColor", color: "#ff0000"},
@@ -117,15 +117,14 @@ const gameState = {
             this.timeTaken =  this.currentTime - this.startTime;
         }
     }
-    
 };
-
-let scores = getOrInitializeFromStorage('scoreList', initializeScores);
-let lightColors = getOrInitializeFromStorage('lightColorsList', initializeLightColors);
-let darkColors = getOrInitializeFromStorage('darkColorsList', initializeDarkColors);
 
 function initializeScores() {
     return ["N/A", "N/A", "N/A", "N/A", "N/A"];
+}
+
+function saveList(name, list) {
+    localStorage.setItem(name, JSON.stringify(list));
 }
 
 function initializeLightColors() {
@@ -139,16 +138,19 @@ function initializeDarkColors() {
 }
 
 function getOrInitializeFromStorage(key, initializer) {
-    let data = localStorage.getItem(key);
+    const data = localStorage.getItem(key);
     if (data) {
         return JSON.parse(data);
-    } else {
-        // Initialize and save default value
-        const defaultValue = initializer();
-        localStorage.setItem(key, JSON.stringify(defaultValue));
-        return defaultValue;
     }
+    // Initialize and save default value
+    const defaultValue = initializer();
+    localStorage.setItem(key, JSON.stringify(defaultValue));
+    return defaultValue;
 }
+
+let scores = getOrInitializeFromStorage('scoreList', initializeScores);
+const lightColors = getOrInitializeFromStorage('lightColorsList', initializeLightColors);
+const darkColors = getOrInitializeFromStorage('darkColorsList', initializeDarkColors);
 
 function compareRandom() {
     return Math.random() - 0.5;
@@ -163,36 +165,19 @@ function getShuffledList(shuffleList) {
 }
 
 function calculateAverageTime(timeList, timeLeft) {
-    if (timeList.length === 0) return "N/A";
+    if (timeList.length === 0) {
+        return "N/A";
+    }
     const total = timeList.reduce((acc, time) => acc + time, 0);
     const average = (total / timeList.length) + (timeLeft / timeList.length);
     return Math.floor(average);
 }
 
-function display(optionElements) {
-    const randomList = getShuffledList(list);
-    getGreenCount();
-    const { greenList, redList, whiteList } = getList(randomList);
-    let options = getOptions();
-    renderSquares(greenList, redList, whiteList);
-    renderOptions(options, optionElements);
-    gameState.recordStartTime();
-}
-
 function getGreenCount() {
     do {
         gameState.greenCount = getRandomInt(4, 8);
-    } while (gameState.previousGreenCount == gameState.greenCount);
+    } while (gameState.previousGreenCount === gameState.greenCount);
     gameState.previousGreenCount = gameState.greenCount;
-}
-
-function getOptions() {
-    let options = [gameState.greenCount - 1, gameState.greenCount, gameState.greenCount + 1];
-    do {
-        options.sort(compareRandom);
-    } while (options[gameState.previousGreenIndex] == gameState.greenCount);
-    gameState.previousGreenIndex = options.indexOf(gameState.greenCount);
-    return options;
 }
 
 function getList(randomList) {
@@ -205,16 +190,13 @@ function getList(randomList) {
     return { greenList, redList, whiteList };
 }
 
-function renderSquares(greenList, redList, whiteList) {
-    renderDisplay(greenList, "green");
-    renderDisplay(redList, "red");
-    renderDisplay(whiteList, "white");
-}
-
-function renderDisplay(colorsList, color) {
-    colorsList.forEach(num => {
-        setColorClass(num, "square", color);
-    });
+function getOptions() {
+    const options = [gameState.greenCount - 1, gameState.greenCount, gameState.greenCount + 1];
+    do {
+        options.sort(compareRandom);
+    } while (options[gameState.previousGreenIndex] === gameState.greenCount);
+    gameState.previousGreenIndex = options.indexOf(gameState.greenCount);
+    return options;
 }
 
 function setColorClass(index, ...colorClasses) {
@@ -223,37 +205,54 @@ function setColorClass(index, ...colorClasses) {
     element.classList.add(...colorClasses);
 }
 
-function updateDisplay(scores, currentScore = "N/A") {
-    if (!isNaN(currentScore)) {
-        scores.push(currentScore);
-        scores = sortScores(scores);
-    }
+function renderDisplay(colorsList, color) {
+    colorsList.forEach(num => {
+        setColorClass(num, "square", color);
+    });
 }
 
-function sortScores(scores) {
-    const validScores = scores.filter(score => !isNaN(score));
-    validScores.sort((a, b) => a - b);
-    scores = validScores.slice(0, 5);
-    saveList('scoreList', scores);
-    updateScores(scores);
-    return scores;
-}
-
-function saveList(name, list) {
-    localStorage.setItem(name, JSON.stringify(list));
-}
-
-function updateScores(scores) {
-    for (let i = 0; i < 5; i++) {
-        const scoreText = scores[i];
-        document.querySelector(`#top_${i + 1} .score-text`).textContent = scoreText;
-    }
+function renderSquares(greenList, redList, whiteList) {
+    renderDisplay(greenList, "green");
+    renderDisplay(redList, "red");
+    renderDisplay(whiteList, "white");
 }
 
 function renderOptions(options, optionElements) {
     options.forEach((option, index) => {
         optionElements[index].textContent = option;
     });
+}
+
+function display(optionElements) {
+    const randomList = getShuffledList(squares);
+    getGreenCount();
+    const { greenList, redList, whiteList } = getList(randomList);
+    const options = getOptions();
+    renderSquares(greenList, redList, whiteList);
+    renderOptions(options, optionElements);
+    gameState.recordStartTime();
+}
+
+function updateScores() {
+    for (let i = 0; i < 5; i++) {
+        const scoreText = scores[i];
+        document.querySelector(`#top_${i + 1} .score-text`).textContent = scoreText;
+    }
+}
+
+function sortScores() {
+    const validScores = scores.filter(score => !isNaN(score));
+    validScores.sort((a, b) => a - b);
+    scores = validScores.slice(0, 5);
+    saveList('scoreList', scores);
+    updateScores();
+}
+
+function updateDisplay(currentScore) {
+    if (!isNaN(currentScore)) {
+        scores.push(currentScore);
+        scores = sortScores();
+    }
 }
 
 function updateScoreDisplay() {
@@ -264,11 +263,30 @@ function updateScoreDisplay() {
     document.getElementById("score").textContent = gameState.score;
 }
 
+function updateTimerDisplay(timerElement) {
+    const seconds = Math.floor(gameState.timeInMilliseconds / 1000);
+    const milliseconds = Math.floor((gameState.timeInMilliseconds % 1000) / 10);
+    const formattedTime = `${seconds < 10 ? '0' : ''}${seconds}:${milliseconds < 10 ? '0' : ''}${milliseconds}`;
+    timerElement.textContent = formattedTime;
+}
+
 function resetValues(timerElement, timeElement) {
-    gameState.reset()
+    gameState.reset();
     timeElement.textContent = "0ms";
     updateTimerDisplay(timerElement);
     updateScoreDisplay();
+}
+
+function handleCorrectOption(timeTaken, timeElement) {
+    gameState.won++;
+    gameState.timesTaken.push(timeTaken);
+    timeElement.textContent = `${Math.floor(timeTaken)} ms`;
+}
+
+function handleIncorrectOption(timeTaken, timeElement) {
+    gameState.lost++;
+    gameState.timesTaken.push(timeTaken + 1000);
+    timeElement.textContent = `${Math.floor(timeTaken)} ms + 1000`;
 }
 
 function handleOptionClick(optionText, timeElement, optionElements) {
@@ -278,7 +296,7 @@ function handleOptionClick(optionText, timeElement, optionElements) {
     gameState.recordCurrentTime();
     gameState.recordTimeTaken();
     
-    if (parseInt(optionText) === gameState.greenCount) {
+    if (parseInt(optionText, 10) === gameState.greenCount) {
         handleCorrectOption(gameState.timeTaken, timeElement);
     } else {
         handleIncorrectOption(gameState.timeTaken, timeElement);
@@ -287,25 +305,9 @@ function handleOptionClick(optionText, timeElement, optionElements) {
     updateScoreDisplay();
 }
 
-function handleIncorrectOption(timeTaken, timeElement) {
-    gameState.lost++;
-    gameState.timesTaken.push(timeTaken + 1000);
-    timeElement.textContent = `${Math.floor(timeTaken)} ms + 1000`;
+function stopTimer() {
+    clearInterval(gameState.timerInterval);
 }
-
-function handleCorrectOption(timeTaken, timeElement) {
-    gameState.won++;
-    gameState.timesTaken.push(timeTaken);
-    timeElement.textContent = `${Math.floor(timeTaken)} ms`;
-}
-
-function updateTimerDisplay(timerElement) {
-    const seconds = Math.floor(gameState.timeInMilliseconds / 1000);
-    const milliseconds = Math.floor((gameState.timeInMilliseconds % 1000) / 10);
-    const formattedTime = `${seconds < 10 ? '0' : ''}${seconds}:${milliseconds < 10 ? '0' : ''}${milliseconds}`;
-    timerElement.textContent = formattedTime;
-}
-
 
 function handleGameOver(timerElement) {
     stopTimer();
@@ -313,19 +315,11 @@ function handleGameOver(timerElement) {
     gameState.recordCurrentTime();
     gameState.recordTimeTaken();
     const averageTime = calculateAverageTime(gameState.timesTaken, gameState.timeTaken);
-    accuracy = (gameState.score / (gameState.won + gameState.lost)) * 100;
-    updateDisplay(scores, averageTime);
+    const accuracy = (gameState.score / (gameState.won + gameState.lost)) * 100;
+    updateDisplay(averageTime);
     document.getElementById("finalScore").textContent = averageTime;
     document.getElementById("accuracy").textContent = accuracy.toFixed(2);
     document.getElementById("gameOver").style.display = "flex";
-}
-
-function startTimer(timerElement) {
-    gameState.timerInterval = setInterval(() => updateTimer(timerElement), 50);
-}
-
-function stopTimer() {
-    clearInterval(gameState.timerInterval);
 }
 
 function updateTimer(timerElement) {
@@ -337,29 +331,16 @@ function updateTimer(timerElement) {
     }
 }
 
+function startTimer(timerElement) {
+    gameState.timerInterval = setInterval(() => updateTimer(timerElement), 50);
+}
+
 function resetGame(timerElement, timeElement, optionElements) {
     stopTimer();
     resetValues(timerElement, timeElement);
     display(optionElements);
     updateScoreDisplay();
     startTimer(timerElement);
-}
-
-function initializeColorInputs(oldTheme) {
-    const colors = oldTheme === "light" ? lightColors : darkColors;
-    const getDefaultColor = oldTheme === "light" ? getLightDefaultColor : getDarkDefaultColor;
-    colorInputs.forEach(({ id, variable }) => {
-        let color = colors.find(color => color.id === id)?.color || getDefaultColor(id);
-        setColor(id, variable, color, oldTheme);
-        const element = document.getElementById(id);
-        if (element) {
-            element.removeEventListener("input", handleInput);
-            function handleInput() {
-                setColor(id, variable, this.value, gameState.theme);
-            };
-            element.addEventListener("input", handleInput);
-        }
-    });
 }
 
 function getLightDefaultColor(id) {
@@ -370,17 +351,51 @@ function getDarkDefaultColor(id) {
     return darkDefaultColors.find(color => color.id === id).color;
 }
 
-function setColor(id, variable, value, newTheme) {
-    document.documentElement.style.setProperty(variable, value);
-    const colors = newTheme === "light" ? lightColors : darkColors;
-    let colorToUpdate = colors.find(color => color.id === id);
+function setColor(variable, value) {
+    document.documentElement.style.setProperty(variable, value)
+}
+
+function saveColor(id, value, newTheme) {
+    let colors, colorsList;
+    if (newTheme === "light") {
+        colors = lightColors;
+        colorsList = "lightColorsList";
+    } else {
+        colors = darkColors;
+        colorsList = "darkColorsList";
+    }
+    const colorToUpdate = colors.find(color => color.id === id);
     if (colorToUpdate) {
         colorToUpdate.color = value;
     } else {
         colors.push({ id, color: value });
     }
-    const colorsList = newTheme === "light" ? "lightColorsList" : "darkColorsList";
     saveList(colorsList, colors);
+}
+
+function initializeColorInputs(oldTheme) {
+    let colors, getDefaultColor;
+    if (oldTheme === "light") {
+        colors = lightColors;
+        getDefaultColor = getLightDefaultColor;
+    } else {
+        colors = darkColors;
+        getDefaultColor = getDarkDefaultColor;
+    }
+    colorInputs.forEach(({ id, variable }) => {
+        const value = colors.find(color => color.id === id)?.color || getDefaultColor(id);
+        setColor(variable, value);
+        saveColor(id, value, oldTheme);
+        const element = document.getElementById(id);
+        if (element) {
+            element.removeEventListener("input", element.handleInput);
+            element.handleInput = function () {
+                setColor(variable, this.value);
+                saveColor(id, this.value, gameState.theme);
+            };
+            element.addEventListener("input", element.handleInput);
+        }
+    });
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -396,10 +411,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const resetButtons = document.querySelectorAll(".fa-rotate-right");
     const resetAll = document.getElementById("resetAll");
     
-    gameState.theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-
+    if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+        gameState.theme = "dark";
+    } else {
+        gameState.theme = "light";
+    }
+    
     initializeColorInputs(gameState.theme);
-
+    
     function settingsContentShow() {
         settingsContent.style.display = "flex";
         settingsIcon.removeEventListener("click", settingsContentShow);
@@ -412,36 +431,36 @@ document.addEventListener("DOMContentLoaded", () => {
         settingsIcon.addEventListener("click", settingsContentShow);
         settingsIcon.addEventListener("keydown", handleSettingsEvent);
     }
-
+    
     function handleSettingsEvent(event) {
         if (event.type === "click" || (event.type === "keydown" && event.key === "Enter")) {
             settingsContentShow();
         }
     }
-
+    
     startGameElement.addEventListener("click", () => {
         document.getElementById("startPopup").style.display = "none";
         display(optionElements);
-        scores = sortScores(scores);
+        scores = sortScores();
         startTimer(timerElement);
     });
-
+    
     document.getElementById("retry_button").addEventListener("click", () => {
         resetGame(timerElement, timeElement, optionElements);
     });
-
+    
     document.getElementById("reset_button").addEventListener("click", () => {
         localStorage.removeItem('scoreList');
-        scores = initializeScores()
-        scores = sortScores(scores);
-        window.alert("Data has been reset");
+        scores = initializeScores();
+        scores = sortScores();
+        window.alert("Data has been reset"); // TODO: Change this with Toaster
     });
-
+    
     deleteButtons.forEach(button => {
         button.addEventListener("click", () => {
-            let index = (button.getAttribute("data-index"));
+            const index = (button.getAttribute("data-index"));
             scores[index] = "N/A";
-            scores = sortScores(scores);
+            scores = sortScores();
         });
     });
     
@@ -449,18 +468,18 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("gameOver").style.display = "none";
         resetGame(timerElement, timeElement, optionElements);
     });
-
+    
     optionElements.forEach(option => {
         option.addEventListener("click", () => {
             handleOptionClick(option.textContent, timeElement, optionElements);
         });
     });
     document.addEventListener("keydown", (event) => handleOptionClick(event.key, timeElement, optionElements));
-
+    
     document.getElementById("close").addEventListener("click", () => {
         document.getElementById("gameOver").style.display = "none";
     });
-
+    
     changeTheme.addEventListener("click", () => {
         if (gameState.theme === "light") {
             gameState.theme = "dark";
@@ -469,26 +488,37 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         initializeColorInputs(gameState.theme);
     });
-
+    
     settingsIcon.addEventListener("click", settingsContentShow);
     settingsIcon.addEventListener("keydown", handleSettingsEvent);
     
     resetButtons.forEach(button => {
-        const colors = gameState.theme === "light" ? lightDefaultColors : darkDefaultColors;
         button.addEventListener("click", () => {
+            let colors;
+            if (gameState.theme === "light") {
+                colors = lightDefaultColors;
+            } else {
+                colors = darkDefaultColors;
+            }
             const selectedColor = button.getAttribute("data-color");
             const variable = colorInputs.find(variable => variable.id === selectedColor).variable;
             const value = colors.find(color => color.id === selectedColor).color;
-            setColor(selectedColor, variable, value, gameState.theme);
+            setColor(variable, value);
+            saveColor(selectedColor, value, gameState.theme);
         });
     });
     
     resetAll.addEventListener("click", () => {
-        const colors = gameState.theme === "light" ? lightDefaultColors : darkDefaultColors;
+        if (gameState.theme === "light") {
+            colors = lightDefaultColors;
+        } else {
+            colors = darkDefaultColors;
+        }
         colors.forEach(({ id, color }) => {
             const variable = colorInputs.find(variable => variable.id === id).variable;
             if (variable) {
-                setColor(id, variable, color, gameState.theme);
+                setColor(variable, color);
+                saveColor(id, color, gameState.theme);
             }
         });
         settingsContentHide();
