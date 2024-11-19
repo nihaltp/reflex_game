@@ -120,7 +120,7 @@ function handleScore(accuracy) {
 function handleAccuracy() {
     const accuracy = (gameState.score / (gameState.won + gameState.lost)) * 100;
     const accuracyElement = document.getElementById("accuracy");
-    setElementContent(accuracyElement, accuracy);
+    setElementContent(accuracyElement, accuracy.toFixed(2));
     return accuracy;
 }
 
