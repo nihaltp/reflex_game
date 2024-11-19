@@ -1,4 +1,4 @@
-import { lightDefaultColors, darkDefaultColors } from "./constants.js";
+import { lightDefaultColors, darkDefaultColors, squares } from "./constants.js";
 import { gameState } from "./gameState.js";
 
 export function compareRandom() {
@@ -9,8 +9,12 @@ export function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function getShuffledList(shuffleList) {
-    return [...shuffleList].sort(compareRandom);
+export function shuffleList() {
+    // Fisher-Yates shuffle algorithm
+    for (let i = squares.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [squares[i], squares[j]] = [squares[j], squares[i]];
+    }
 }
 
 export function calculateAverageTime(timeList, timeLeft = 0) {

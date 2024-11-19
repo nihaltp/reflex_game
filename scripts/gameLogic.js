@@ -2,9 +2,10 @@ import { squares } from "./constants.js";
 import { gameState } from "./gameState.js";
 import { scores, saveList } from "./init.js";
 import { renderSquares, renderOptions, setElementContent, toggleVisibility } from "./render.js";
-import { getRandomInt, getShuffledList, getGreenCount, getOptions, calculateAverageTime } from "./utils.js";
+import { getRandomInt, shuffleList, getGreenCount, getOptions, calculateAverageTime } from "./utils.js";
 
-function getList(randomList) {
+function getList() {
+    let randomList = [...squares];
     const redCount = getRandomInt(4, 11 - gameState.greenCount);
     const greenList = randomList.slice(0, gameState.greenCount);
     randomList.splice(0, gameState.greenCount);
@@ -80,9 +81,9 @@ function handleIncorrectOption(timeTaken, timeElement) {
 }
 
 export function display(optionElements) {
-    const randomList = getShuffledList(squares);
+    shuffleList();
     getGreenCount();
-    const { greenList, redList, whiteList } = getList(randomList);
+    const { greenList, redList, whiteList } = getList();
     const options = getOptions();
     renderSquares(greenList, redList, whiteList);
     renderOptions(options, optionElements);
