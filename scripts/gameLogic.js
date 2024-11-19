@@ -110,8 +110,8 @@ function stopTimer() {
     clearInterval(gameState.timerInterval);
 }
 
-function handleAverageTime() {
-    const averageTime = calculateAverageTime(gameState.timesTaken, gameState.timeTaken);
+function handleScore(accuracy) {
+    const averageTime = calculateAverageTime(gameState.timesTaken, gameState.timeTaken, accuracy);
     updateDisplay(averageTime);
     const finalScore = document.getElementById("finalScore");
     setElementContent(finalScore, averageTime);
@@ -121,6 +121,7 @@ function handleAccuracy() {
     const accuracy = (gameState.score / (gameState.won + gameState.lost)) * 100;
     const accuracyElement = document.getElementById("accuracy");
     setElementContent(accuracyElement, accuracy);
+    return accuracy;
 }
 
 function handleGameOverElement() {
@@ -133,8 +134,8 @@ function handleGameOver(timerElement) {
     setElementContent(timerElement, "00:00");
     gameState.recordCurrentTime();
     gameState.recordTimeTaken();
-    handleAverageTime();
-    handleAccuracy();
+    const accuracy = handleAccuracy();
+    handleScore(accuracy);
     handleGameOverElement();
 }
 

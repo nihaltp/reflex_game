@@ -17,13 +17,14 @@ export function shuffleList() {
     }
 }
 
-export function calculateAverageTime(timeList, timeLeft = 0) {
+export function calculateAverageTime(timeList = [], timeLeft = 0, accuracy = 50) {
     if (timeList.length === 0) {
         return "N/A";
     }
     const total = timeList.reduce((acc, time) => acc + time, 0);
     const average = (total / timeList.length) + (timeLeft / timeList.length);
-    return Math.floor(average);
+    const score = (average * 100) / accuracy;
+    return Math.floor(score);
 }
 
 export function getLightDefaultColor(id) {
