@@ -44,3 +44,7 @@ export function initializeDOMElements() {
         gameOver : document.getElementById("gameOver"),
     }
 }
+
+export let scores = getOrInitializeFromStorage('scoreList', initializeScores);
+export const lightColors = getOrInitializeFromStorage('lightColorsList', initializeLightColors);
+export const darkColors = getOrInitializeFromStorage('darkColorsList', initializeDarkColors);
