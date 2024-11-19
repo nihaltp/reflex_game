@@ -37,4 +37,6 @@ Jump right in and test your reflexes! We hope you enjoy the game and have fun im
 
 <a href="https://www.linkedin.com/in/tp-nihal/?utm_source=github&utm_medium=repository&utm_campaign=reflex_game" target="_blank">
   <img src="https://upload.wikimedia.org/wikipedia/commons/0/01/LinkedIn_Logo.svg" alt="LinkedIn" width="100">
-</a>
+</a><br><br>
+
+<img src="https://wakatime.com/badge/user/5fd5ccb6-4ffb-4d1f-9615-e5dfcaad12cd/project/88f1ee75-9297-4b71-a8a4-35956bb0c0ef.svg?style=for-the-badge">
