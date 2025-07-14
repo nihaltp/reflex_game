@@ -197,6 +197,12 @@ a {
     font-size: 1em;
 }
 
+.points .won h3, .points .lost h3, .points .score h3{
+    font-size: 1em;
+    margin: 0;
+    font-weight: normal;
+}
+
 .option {
     width: 30%;
     max-width: 100px;
@@ -462,6 +468,9 @@ button#gameOverButton:hover, button#gameOverButton:focus {
     }
     .left {
         height: 100px;
+    }
+    h2 {
+        display: none;
     }
     .startPopup .content {
         width: 50%;

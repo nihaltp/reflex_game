@@ -3,13 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reaction Test</title>
+    <title>Reaction Test – Count Green Boxes Before Time’s Up</title>
+    <!-- MARK: schema
+    -->
+    <script type="application/ld+json"> {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "Reflex of Reaction – Count the Green Squares Game",
+        "description": "A browser-based reflex game where you count green boxes in a 4x4 grid and click the correct number before time runs out.",
+        "applicationCategory": "GameApplication",
+        "author": {
+            "@type": "Person",
+            "name": "Nihal T P",
+            "url": "https://www.linkedin.com/in/tp-nihal/",
+            "sameAs": [
+                "https://github.com/nihaltp"
+            ]
+        },
+        "publisher": {
+            "@type": "Person",
+            "name": "Nihal T P",
+            "url": "https://github.com/nihaltp",
+            "sameAs": [
+                "https://www.linkedin.com/in/tp-nihal/"
+            ]
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "url": "https://nihaltp.github.io/reflex_game/",
+        "image": "https://nihaltp.github.io/reflex_game/images/icon.png",
+        "inLanguage": "en"
+    }
+    </script>
     <link rel="icon" href="images/icon.png" type="image/png">
-    <meta name="description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
+    <meta name="description" content="Train your reflexes in this 4x4 grid game. Count green boxes, tap the right answer, and beat the 30-second challenge!">
     <meta name="keywords" content="reaction test, reflex game, reaction time, count squares game, mental agility, reflex training, fun games, brain games, game, reaction game, reaction timer, colour game, color game, color test, colour test, counting game, counting test, number game, number test, color counting game, color counting test, colour counting game, colour">
-
-    <!-- Open Graph Meta Tags for social media sharing -->
-    <meta property="og:title" content="Reaction Test Game">
+    <meta property="og:title" content="Reaction Test – Count Green Boxes Before Time’s Up">
     <meta property="og:description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
     <meta property="og:image" content="https://nihaltp.github.io/reflex_game/images/icon.png">
     <meta property="og:url" content="https://nihaltp.github.io/reflex_game/">
@@ -17,23 +49,23 @@
 
     <!-- Twitter Card Meta Tags for social media sharing -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Reaction Test Game">
+    <meta name="twitter:title" content="Reaction Test – Count Green Boxes Before Time’s Up">
     <meta name="twitter:description" content="Challenge your reflexes with our engaging Reaction Test game. Count the green squares, click the correct number, and improve your reaction time. Perfect for quick fun and mental agility training!">
     <meta name="twitter:image" content="https://nihaltp.github.io/reflex_game/images/icon.png">
     <meta name="twitter:url" content="https://nihaltp.github.io/reflex_game/">
 
     <link rel="stylesheet" href="styles/colors.css">
     <link rel="stylesheet" href="styles/style.css">
-    <script rel="preload" src="https://kit.fontawesome.com/c3cff5abce.js" crossorigin="anonymous"></script>
-    <script type="module" src="scripts/script.js"></script>
-    <script type="module" src="scripts/constants.js"></script>
-    <script type="module" src="scripts/gameState.js"></script>
-    <script type="module" src="scripts/init.js"></script>
-    <script type="module" src="scripts/utils.js"></script>
-    <script type="module" src="scripts/render.js"></script>
-    <script type="module" src="scripts/listeners.js"></script>
-    <script type="module" src="scripts/gameLogic.js"></script>
-    <script type="module" src="scripts/theme.js"></script>
+    <script src="https://kit.fontawesome.com/c3cff5abce.js" crossorigin="anonymous" defer></script>
+    <script type="module" src="scripts/script.js" defer></script>
+    <script type="module" src="scripts/constants.js" defer></script>
+    <script type="module" src="scripts/gameState.js" defer></script>
+    <script type="module" src="scripts/init.js" defer></script>
+    <script type="module" src="scripts/utils.js" defer></script>
+    <script type="module" src="scripts/render.js" defer></script>
+    <script type="module" src="scripts/listeners.js" defer></script>
+    <script type="module" src="scripts/gameLogic.js" defer></script>
+    <script type="module" src="scripts/theme.js" defer></script>
 </head>
 <body>
     <div class="startPopup" id="startPopup" role="dialog" aria-labelledby="welcomeTitle" aria-describedby="welcomeDescription">
@@ -45,14 +77,18 @@
     </div>
     <div class="container">
         <div class="left">
+            <h2>Game Stats</h2><br>
             <div class="points">
-                <div class="won">WON
+                <div class="won">
+                    <h3>WON</h3>
                     <div id="won">0</div>
                 </div>
-                <div class="lost">LOST
+                <div class="lost">
+                    <h3>LOST</h3>
                     <div id="lost">0</div>
                 </div>
-                <div class="score">SCORE
+                <div class="score">
+                    <h3>SCORE</h3>
                     <div id="score">0</div>
                 </div>
             </div>
@@ -111,7 +147,7 @@
                 <div>
                     <ul>
                         <li>
-                            <a href="https://github.com/nihaltp/reflex_game" target="_blank" rel="noopener">
+                            <a href="https://github.com/nihaltp/reflex_game" target="_blank" rel="noopener" title="View source code of Reflex Game on GitHub">
                                 <span class="fa-stack fa-lg">
                                     <i class="fa fa-circle fa-stack-2x"></i>
                                     <i class="fa fa-github fa-stack-1x fa-inverse"></i>
@@ -119,12 +155,12 @@
                             </a>
                         </li>
                         <li>
-                            <a href="https://www.linkedin.com/in/tp-nihal/?utm_source=reflex_game&utm_medium=website&utm_campaign=reflex_game_page" target="_blank" rel="noopener">
+                            <a href="https://www.linkedin.com/in/tp-nihal/?utm_source=reflex_game&utm_medium=website&utm_campaign=reflex_game_page" target="_blank" rel="noopener" title="Connect with creator on LinkedIn">
                                 <i class="fa-brands fa-linkedin fa-2x linkIcon"></i>
                             </a>
                         </li>
                         <li>
-                            <a href="https://mail.google.com/mail/?view=cm&to=nihaltpnki@gmail.com" target="_blank" rel="noopener noreferrer">
+                            <a href="https://mail.google.com/mail/?view=cm&to=nihaltpnki@gmail.com" target="_blank" rel="noopener noreferrer" title="Send email to creator">
                                 <i class="fa fa-envelope fa-2x"></i>
                             </a>
                         </li>

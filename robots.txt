@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://nihaltp.github.io/reflex_game/sitemap.xml
